@@ -14,7 +14,12 @@ my.mkUser pillow {
   uid = 1000;
 
   initialHashedPassword = "$y$j9T$dummyhashfornow$yXUohY5bEl/XXXX"; # run `mkpasswd -m yescrypt`
-  extraGroups = [ "wheel" ]; # sudo
+  extraGroups = [
+    "wheel"
+    "dialout"
+    "networkmanager"
+    "adbusers"
+  ];
 
   extraSpecialArgs = {
     machine = machineInfo;

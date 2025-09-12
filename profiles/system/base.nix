@@ -1,7 +1,7 @@
 {
   config,
-  inputs,
   lib,
+  local,
   machineInfo,
   pillow,
   pkgs,
@@ -29,10 +29,10 @@
   };
 
   nix = {
-    monitored.notify = false;
+    # monitored.notify = false;
     registry = {
-      stable.flake = inputs.nixpkgs;
-      unstable.flake = inputs.nixpkgs-unstable;
+      stable.flake = local.nixpkgs;
+      unstable.flake = local.nixpkgs-unstable;
       master.to = {
         owner = "nixos";
         repo = "nixpkgs";
@@ -132,31 +132,31 @@
       ];
   };
 
-  xdg.mime.inverted.defaultApplications."gthumb.desktop" =
-    lib.optionals (pillow.edition == "workstation")
-      [
-        "image/bmp"
-        "image/gif"
-        "image/jpeg"
-        "image/jpg"
-        "image/pjpeg"
-        "image/png"
-        "image/svg+xml"
-        "image/svg+xml-compressed"
-        "image/tiff"
-        "image/vnd.wap.wbmp"
-        "image/x-bmp"
-        "image/x-gray"
-        "image/x-icb"
-        "image/x-icns"
-        "image/x-ico"
-        "image/x-pcx"
-        "image/x-png"
-        "image/x-portable-anymap"
-        "image/x-portable-bitmap"
-        "image/x-portable-graymap"
-        "image/x-portable-pixmap"
-        "image/x-xbitmap"
-        "image/x-xpixmap"
-      ];
+  # xdg.mime.inverted.defaultApplications."gthumb.desktop" =
+  #   lib.optionals (pillow.edition == "workstation")
+  #     [
+  #       "image/bmp"
+  #       "image/gif"
+  #       "image/jpeg"
+  #       "image/jpg"
+  #       "image/pjpeg"
+  #       "image/png"
+  #       "image/svg+xml"
+  #       "image/svg+xml-compressed"
+  #       "image/tiff"
+  #       "image/vnd.wap.wbmp"
+  #       "image/x-bmp"
+  #       "image/x-gray"
+  #       "image/x-icb"
+  #       "image/x-icns"
+  #       "image/x-ico"
+  #       "image/x-pcx"
+  #       "image/x-png"
+  #       "image/x-portable-anymap"
+  #       "image/x-portable-bitmap"
+  #       "image/x-portable-graymap"
+  #       "image/x-portable-pixmap"
+  #       "image/x-xbitmap"
+  #       "image/x-xpixmap"
+  #     ];
 }

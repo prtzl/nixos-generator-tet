@@ -1,3 +1,3 @@
 {
-  programs.nixvim.enable = false;
+  programs.nvimnix.enable = true;
 }

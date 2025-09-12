@@ -36,7 +36,7 @@
       transmission_4-gtk
 
       # Utility
-      unstable.enpass # unstable is unfree
+      # unstable.enpass # unstable is unfree
 
       # Communication
       signal-desktop

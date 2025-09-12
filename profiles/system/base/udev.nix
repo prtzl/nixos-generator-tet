@@ -13,7 +13,7 @@ let
         license = "";
       };
     });
-  jlink = mkFree local.jlink-pack.defaultPackage."${pillow.hostPlatform}";
+  # jlink = mkFree local.jlink-pack.defaultPackage."${pillow.hostPlatform}";
 in
 {
   environment.systemPackages = with pkgs; [
@@ -22,7 +22,7 @@ in
     # ... But we still need rules on system config, so we can cry about it.
     # Have project-specific jlink but make sure system installed is up-to-date
     # so that your new shiny jlink is supported. Even better, just use this package as well, hehe.
-    jlink
+    # jlink
     lm_sensors
     stlink
     tio
@@ -37,7 +37,7 @@ in
       SUBSYSTEMS=="usb", KERNEL=="ttyUSB[0-9]*", ATTRS{idVendor}=="0403", ATTRS{idProduct}=="6001", SYMLINK+="sensors/ftdi_%s{serial}", GROUP="dialout"
 
       # Somehow added jlink file to udev does not get picked up :/
-      ${builtins.readFile "${jlink}/lib/udev/rules.d/99-jlink.rules"}
     '';
+    # ${builtins.readFile "${jlink}/lib/udev/rules.d/99-jlink.rules"}
   };
 }

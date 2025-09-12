@@ -7,6 +7,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvimnix.url = "github:prtzl/nvimnix";
+    nix-monitored = {
+      url = "github:ners/nix-monitored";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,6 +23,7 @@
 
       externalModules = [
         inputs.nvimnix
+        # inputs.nix-monitored
       ];
 
       my = import ./lib/my-system.nix {
