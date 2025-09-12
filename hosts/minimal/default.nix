@@ -2,7 +2,6 @@
   inputs,
   lib,
   my,
-  ...
 }:
 
 let
@@ -15,7 +14,7 @@ let
 in
 my.mkSystem {
   pillow = {
-    edition = "server";
+    edition = "workstation";
     buildPlatform = "x86_64-linux"; # where you build it
     hostPlatform = "x86_64-linux"; # target system arch
   };

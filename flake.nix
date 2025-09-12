@@ -12,6 +12,7 @@
   outputs =
     inputs:
     let
+      version = "25.05";
       nixpkgs = inputs.nixpkgs;
       home-manager = inputs.home-manager;
       lib = nixpkgs.lib;
@@ -26,6 +27,7 @@
           nixpkgs
           home-manager
           externalModules
+          version
           ;
       };
 

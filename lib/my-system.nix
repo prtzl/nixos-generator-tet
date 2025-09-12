@@ -1,8 +1,9 @@
 {
+  externalModules ? [ ],
+  home-manager,
   lib,
   nixpkgs,
-  home-manager,
-  externalModules ? [ ],
+  version,
 }:
 
 let
@@ -27,6 +28,12 @@ let
         modules
         ++ [
           home-manager.nixosModules.home-manager
+          (
+            { ... }:
+            {
+              system.stateVersion = version;
+            }
+          )
         ]
         ++ (importModules {
           type = "nixosModules";
@@ -53,7 +60,15 @@ let
         ++ (importModules {
           type = "homeManagerModules";
           system = pillow.hostPlatform;
-        });
+        })
+        ++ [
+          (
+            { ... }:
+            {
+              home.stateVersion = version;
+            }
+          )
+        ];
     in
     {
       # Home Manager config for this user

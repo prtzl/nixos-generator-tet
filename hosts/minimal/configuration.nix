@@ -76,5 +76,4 @@
   # };
 
   # ❗ Required: match your NixOS version
-  system.stateVersion = "25.05";
 }
