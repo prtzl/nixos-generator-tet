@@ -9,7 +9,13 @@
   };
 
   outputs =
-    {self, nixpkgs, home-manager, nvimnix, ...}:
+    {
+      self,
+      nixpkgs,
+      home-manager,
+      nvimnix,
+      ...
+    }:
     let
       lib = nixpkgs.lib;
 

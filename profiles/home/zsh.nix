@@ -1,0 +1,234 @@
+{
+  pkgs,
+  ...
+}:
+
+{
+  home.packages = with pkgs; [
+    bat
+    eza
+    fd
+    fzf
+    lazygit
+    ripgrep
+    tree
+    xclip
+    zsh-completions
+  ];
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      command_timeout = 50; # It's very noticable and anoying beyond this
+      add_newline = false;
+      character = {
+        success_symbol = "[»](bold green)";
+        error_symbol = "[»](bold red)";
+        vicmd_symbol = "[«](bold blue)";
+      };
+      username = {
+        disabled = false;
+        show_always = true;
+        style_root = "bold red";
+        style_user = "bold yellow";
+        format = "[$user]($style)";
+      };
+      hostname = {
+        disabled = false;
+        ssh_only = false;
+        ssh_symbol = "  ";
+        style = "bold " + "green";
+        format = "[@$hostname$ssh_symbol]($style)";
+      };
+      directory = {
+        disabled = false;
+        format = "[:$path ]($style)";
+        style = "bold cyan";
+        truncate_to_repo = false;
+        truncation_length = 5;
+        truncation_symbol = ">";
+      };
+      git_branch = {
+        style = "bold purple";
+        format = "[$symbol$branch ]($style)";
+        symbol = " ";
+        always_show_remote = true;
+      };
+      git_commit = {
+        disabled = true;
+        only_detached = false;
+        tag_disabled = false;
+        tag_symbol = ":";
+        format = "[\\($hash$tag\\)]($style)";
+      };
+      git_status = {
+        ahead = "⇡($count)";
+        behind = "⇣($count)";
+        conflicted = "";
+        deleted = "";
+        disabled = false;
+        diverged = "⇕⇡($ahead_count)⇣($behind_count)";
+        format = "[\\[$all_status(|$ahead_behind)\\] ]($style)";
+        modified = "󰷈";
+        renamed = "";
+        staged = "[++($count)](green)";
+        stashed = "󰆧";
+        style = " bold yellow";
+        untracked = "";
+        up_to_date = "✓";
+      };
+      nix_shell = {
+        symbol = "❄️";
+        style = "bold blue";
+        format = "[$symbol  $name ]($style)";
+      };
+      c.disabled = true;
+      cmake.disabled = true;
+      cpp.disabled = true;
+      package.disabled = true;
+      python.disabled = true;
+    };
+  };
+
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    nix-direnv.enable = true;
+  };
+
+  programs.fzf = {
+    enable = true;
+    enableZshIntegration = true;
+    enableBashIntegration = true;
+    fileWidgetOptions = [
+      "--walker-skip .git,node_modules,target"
+      "--preview 'bat -n --color=always {}'"
+      "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+    ];
+    changeDirWidgetOptions = [
+      "--walker-skip .git,node_modules,target"
+      "--preview 'tree -C {}'"
+    ];
+    historyWidgetOptions = [
+      "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
+      "--color header:italic"
+      "--header 'Press CTRL-Y to copy command into clipboard'"
+    ];
+  };
+
+  # Let's configure bash with even starship, fzf, and direnv when needed
+  # zsh seems to have features I like, but I can still have good
+  # ux when bash is required for compatability (nix develop)
+  programs.bash = {
+    enable = true;
+    enableCompletion = true;
+    historySize = 100000;
+    shellAliases = {
+      ls = "eza --group-directories-first --color=always --icons";
+      l = "ls -la";
+      ll = "ls -l";
+      grep = "grep --color=always -n";
+      xclip = "xclip -selection clipboard";
+
+      # System
+      reboot = ''read -s \?"Reboot? [ENTER]: " && if [ -z "$REPLY" ];then env reboot;else echo "Canceled";fi'';
+      poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
+      udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
+    };
+    initExtra = ''
+      # Prevents direnv from yapping too much
+      export DIRENV_LOG_FORMAT=""
+    '';
+  };
+
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestion.enable = true;
+    syntaxHighlighting.enable = true;
+    historySubstringSearch.enable = true;
+
+    shellAliases = {
+      # Utilities
+      ls = "eza --group-directories-first --color=always --icons";
+      l = "ls -la";
+      ll = "ls -l";
+      grep = "grep --color=always -n";
+      ssh = "ssh -C";
+      xclip = "xclip -selection clipboard";
+
+      # Programs
+      pdf = "evince";
+      img = "";
+      play = "celluloid";
+      sl = "sl -ead -999";
+      vim = "nvim";
+      gvim = "nvim-qt";
+
+      # System
+      reboot = ''read -s \?"Reboot? [ENTER]: " && if [ -z "$REPLY" ];then env reboot;else echo "Canceled";fi'';
+      poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
+      udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
+
+      git = "wslgit";
+    };
+
+    history = {
+      expireDuplicatesFirst = true;
+      ignoreAllDups = true;
+      ignoreDups = true;
+      ignoreSpace = true;
+      save = 100000;
+      share = true;
+      size = 100000;
+    };
+
+    initContent = ''
+      autoload -U colors && colors
+
+      zstyle ':completion:*' menu select
+      zstyle ':completion:*' group-name ""
+      zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
+      _comp_options+=(globdots)
+
+      # Add history command complete
+      source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
+      bindkey "^[[A" history-substring-search-up
+      bindkey "^[[B" history-substring-search-down      
+
+      # F$cked keys, give them back
+      bindkey "^[[3~" delete-char
+      bindkey "^[[3;5~" delete-char
+      bindkey '^H' backward-kill-word
+      bindkey '^[[1;5D' backward-word
+      bindkey '^[[1;5C' forward-word
+      bindkey '\e[11~' "urxvt &\n"
+
+      # enable vim mode (default is insert, esc gets you to normal)
+      bindkey -v
+
+      # Don't save a command into history if it failed to evaluate.
+      # If it runs but fails, it is still saved. No worries of loosing typoed commands.
+      zshaddhistory() {
+        whence ''${''${(z)1}[1]} >| /dev/null || return 1
+      }
+
+      # Prevents direnv from yapping too much
+      export DIRENV_LOG_FORMAT=""
+
+      viewimage() {
+        gthumb "''${@:-.}" >/dev/null 2>&1 & disown
+      }
+
+      usage() {
+        du -h "''${1:-.}" --max-depth=1 2> /dev/null | sort -hr
+      }
+    '';
+  };
+
+  home.sessionVariables = {
+    TERM = "xterm-256color";
+  };
+}
