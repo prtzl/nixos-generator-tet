@@ -69,7 +69,6 @@
     firewall.enable = true;
     hostName = machineInfo.hostname;
     networkmanager.enable = true;
-    useDHCP = true;
   };
   i18n.defaultLocale = "en_GB.UTF-8";
   services = {
@@ -86,7 +85,7 @@
     zsh.enable = true;
   };
 
-  users.defaultUserShell = config.programs.zsh.package;
+  users.defaultUserShell = pkgs.zsh;
 
   environment = {
     shells = with pkgs; [
