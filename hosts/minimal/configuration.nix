@@ -1,7 +1,11 @@
 { lib, pkgs, ... }:
 
 {
-  imports = [ ../../profiles/system/hyprland.nix ];
+  imports = [
+    ../../profiles/system/fonts.nix
+    ../../profiles/system/hyprland.nix
+    ../../profiles/system/pipewire.nix
+  ];
 
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;

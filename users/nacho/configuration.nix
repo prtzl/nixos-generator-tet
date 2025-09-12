@@ -1,12 +1,13 @@
 { pkgs, ... }:
 {
   imports = [
-    ../../profiles/home/zsh.nix
+    ../../profiles/home/alacritty.nix
     ../../profiles/home/hyprland.nix
+    ../../profiles/home/themes.nix
+    ../../profiles/home/tmux.nix
+    ../../profiles/home/zsh.nix
   ];
   home.stateVersion = "25.05"; # adjust to your nixos version
 
-  programs.zsh.enable = true;
   programs.git.enable = true;
-  home.packages = with pkgs; [ tmux ];
 }
