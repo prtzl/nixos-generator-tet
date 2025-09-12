@@ -1,27 +1,12 @@
 {
-  lib,
   my,
-  pkgs,
   pillow,
   ...
 }:
 
 my.mkUser pillow {
   imports = [
-    (
-      { ... }:
-      {
-        imports = [
-          ../../profiles/home/zsh.nix
-          ../../profiles/home/hyprland.nix
-        ];
-        home.stateVersion = "25.05"; # adjust to your nixos version
-
-        programs.zsh.enable = true;
-        programs.git.enable = true;
-        home.packages = with pkgs; [ tmux ];
-      }
-    )
+    ./configuration.nix
   ];
 
   name = "nacho";
