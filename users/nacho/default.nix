@@ -16,5 +16,7 @@ my.mkUser pillow {
   initialHashedPassword = "$y$j9T$dummyhashfornow$yXUohY5bEl/XXXX"; # run `mkpasswd -m yescrypt`
   extraGroups = [ "wheel" ]; # sudo
 
-  extraSpecialArgs = { inherit machineInfo; };
+  extraSpecialArgs = {
+    machine = machineInfo;
+  };
 }
