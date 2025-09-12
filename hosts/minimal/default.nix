@@ -21,9 +21,8 @@ my.mkSystem {
   };
 
   modules = [
-    ../../users/nacho
-    inputs.nvimnix.nixosModules."x86_64-linux".nvimnix
     ./configuration.nix
+    ../../users/nacho
   ];
 
   specialArgs = {

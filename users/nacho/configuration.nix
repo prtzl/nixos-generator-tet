@@ -11,4 +11,5 @@
   home.stateVersion = "25.05"; # adjust to your nixos version
 
   programs.git.enable = true;
+  programs.nvimnix.enable = true;
 }

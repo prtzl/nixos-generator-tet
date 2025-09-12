@@ -2,6 +2,7 @@
   lib,
   nixpkgs,
   home-manager,
+  homeModules ? [ ],
 }:
 
 let
@@ -31,10 +32,14 @@ let
       extraGroups ? [ ],
       extraSpecialArgs ? { },
     }:
+    let
+      homeImports =
+        imports ++ lib.map (module: module.homeManagerModules.${pillow.hostPlatform}.default) homeModules;
+    in
     {
       # Home Manager config for this user
       home-manager.users.${name} = {
-        inherit imports;
+        imports = homeImports;
       };
 
       # Add shared special args (applies globally, but you can merge all users' needs here)

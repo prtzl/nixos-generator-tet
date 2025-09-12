@@ -14,8 +14,6 @@
   networking.hostName = "minimal";
   networking.useDHCP = true;
 
-  programs.nvimnix.enable = true;
-
   nix.extraOptions = ''
     experimental-features = nix-command flakes
   '';
