@@ -22,6 +22,7 @@ my.mkSystem {
   modules = [
     ./configuration.nix
     ../../users/nacho
+    ../../users/macho
   ];
 
   specialArgs = {
