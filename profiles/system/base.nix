@@ -7,17 +7,20 @@
   ...
 }:
 
+let
+  findModules = import ../../lib/findModules.nix { inherit lib; };
+in
 {
   imports =
-    # with (lib.findModules ./base/.);
+    with (findModules ./base);
     [
-      ../../profiles/system/base/fonts.nix
+      fonts
     ]
     ++ lib.optionals (pillow.edition == "workstation") [
-      ../../profiles/system/base/hyprland.nix
-      ../../profiles/system/base/pipewire.nix
-      ../../profiles/system/base/udev.nix
-      ../../profiles/system/base/wine.nix
+      hyprland
+      pipewire
+      udev
+      wine
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "${pillow.hostPlatform}";

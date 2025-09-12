@@ -5,24 +5,27 @@
   ...
 }:
 
+let
+  findModules = import ../../lib/findModules.nix { inherit lib; };
+in
 {
   imports =
-    # with (lib.findModules ./base);
+    with (findModules ./base);
     [
-      ../../profiles/home/base/btop.nix
-      ../../profiles/home/base/git.nix
-      ../../profiles/home/base/nvim.nix
-      ../../profiles/home/base/ranger.nix
-      ../../profiles/home/base/shell.nix
-      ../../profiles/home/base/tmux.nix
+      btop
+      git
+      nvim
+      ranger
+      shell
+      tmux
     ]
     ++ lib.optionals (pillow.edition == "workstation") [
-      ../../profiles/home/base/alacritty.nix
-      ../../profiles/home/base/dunst.nix
-      ../../profiles/home/base/hyprland.nix
-      ../../profiles/home/base/themes.nix
-      ../../profiles/home/base/tio.nix
-      ../../profiles/home/base/waybar.nix
+      alacritty
+      dunst
+      hyprland
+      themes
+      tio
+      waybar
     ];
 
   home.packages =

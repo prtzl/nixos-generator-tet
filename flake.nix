@@ -19,7 +19,15 @@
       version = "25.05";
       nixpkgs = inputs.nixpkgs;
       home-manager = inputs.home-manager;
-      lib = nixpkgs.lib // (import ./lib/utils.nix { inherit lib; });
+      findModules = import ./lib/utils.nix { inherit lib; };
+      # This don't work ... somehow. I'm now doing this wherever I use it
+      lib = nixpkgs.lib.extend (
+        self: super: {
+          lib = self.lib // {
+            findModules = import ./lib/utils.nix { inherit (self) lib; };
+          };
+        }
+      );
 
       externalModules = with inputs; [
         nvimnix

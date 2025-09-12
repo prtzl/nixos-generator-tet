@@ -15,7 +15,6 @@ let
       isDir = type == "directory";
       isDirModule = isDir && (builtins.readDir fullPath ? "default.nix");
 
-      # name without .nix suffix
       cleanName = lib.removeSuffix ".nix" name;
 
       value =
