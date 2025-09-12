@@ -10,10 +10,11 @@
     # with (lib.findModules ./base);
     [
       ../../profiles/home/base/btop.nix
+      ../../profiles/home/base/git.nix
       ../../profiles/home/base/nvim.nix
       ../../profiles/home/base/ranger.nix
-      ../../profiles/home/base/tmux.nix
       ../../profiles/home/base/shell.nix
+      ../../profiles/home/base/tmux.nix
     ]
     ++ lib.optionals (pillow.edition == "workstation") [
       ../../profiles/home/base/alacritty.nix
