@@ -23,7 +23,6 @@
       noto-fonts
       noto-fonts-emoji
       noto-fonts-extra
-      unstable.corefonts
     ];
   };
 }
