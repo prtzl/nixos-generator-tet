@@ -1,30 +1,33 @@
 {
   lib,
-  ...
 }:
 
-with lib;
-{
-  findModules =
-    dir:
-    foreach (readDir dir) (
-      name: value:
-      let
-        fullPath = dir + "/${name}";
-        isNixModule = value == "regular" && hasSuffix ".nix" name && name != "default.nix";
-        isDir = value == "directory";
-        isDirModule = isDir && readDir fullPath ? "default.nix";
-        module = nameValuePair (removeSuffix ".nix" name) (
-          if isNixModule || isDirModule then
-            fullPath
-          else if isDir then
-            findModules fullPath
-          else
-            { }
-        );
-      in
-      optionalAttrs (isNotEmpty module.value) {
-        "${module.name}" = module.value;
-      }
-    );
-}
+dir:
+let
+  entries = builtins.readDir dir;
+
+  modules = lib.mapAttrs' (
+    name: type:
+    let
+      fullPath = dir + "/${name}";
+      isNixFile = type == "regular" && lib.hasSuffix ".nix" name && name != "default.nix";
+
+      isDir = type == "directory";
+      isDirModule = isDir && (builtins.readDir fullPath ? "default.nix");
+
+      # name without .nix suffix
+      cleanName = lib.removeSuffix ".nix" name;
+
+      value =
+        if isNixFile || isDirModule then
+          fullPath
+        else if isDir then
+          (import ./findModules.nix { inherit lib; }) fullPath
+        else
+          { };
+    in
+    lib.nameValuePair cleanName value
+  ) entries;
+
+in
+lib.filterAttrs (_: v: v != { }) modules
