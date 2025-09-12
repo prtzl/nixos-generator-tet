@@ -15,7 +15,7 @@
       version = "25.05";
       nixpkgs = inputs.nixpkgs;
       home-manager = inputs.home-manager;
-      lib = nixpkgs.lib;
+      lib = nixpkgs.lib // (import ./lib/utils.nix { inherit lib; });
 
       externalModules = [
         inputs.nvimnix

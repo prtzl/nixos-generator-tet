@@ -45,29 +45,24 @@ window#waybar {
 #workspaces {
     transition: none;
     padding: 0 0;
-    border-radius: 0.6rem;
 }
 #workspaces button {
     color: @content_inactive;
     transition: none;
     margin: 0 0.1rem;
-    border-radius: 0.6rem;
 }
 #workspaces button.active {
     color: #1a1a1a;
     background: white;
     transition: none;
-    border-radius: 0.6rem;
 }
 #workspaces button.focused {
     color: @bg_active;
     transition: none;
-    border-radius: 0.6rem;
 }
 #workspaces button.urgent {
     background:  rgba(255, 200, 0, 0.35);
     border-bottom: 0.5rem dashed @warning_color;
-    border-radius: 0.6rem;
     color: @warning_color;
     transition: none;
 }
@@ -75,7 +70,6 @@ window#waybar {
     background: rgba(100, 200, 0, 0.35);
     color: @content_main;
     transition: none;
-    border-radius: 0.6rem;
 }
 
 /* #pulseaudio { */

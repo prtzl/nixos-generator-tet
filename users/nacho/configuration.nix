@@ -1,15 +1,27 @@
-{ ... }:
+{
+  pkgs,
+  lib,
+  pillow,
+  ...
+}:
 {
   imports = [
-    ../../profiles/home/alacritty.nix
-    ../../profiles/home/hyprland.nix
-    ../../profiles/home/themes.nix
-    ../../profiles/home/tmux.nix
-    ../../profiles/home/waybar.nix
-    ../../profiles/home/zsh.nix
+    ../../profiles/home/base.nix
   ];
-  home.stateVersion = "25.05"; # adjust to your nixos version
 
-  programs.git.enable = true;
-  programs.nvimnix.enable = true;
+  home.packages =
+    with pkgs;
+    [ ]
+    ++ lib.optionals (pillow.edition == "workstation") [
+    ];
+
+  programs.git = {
+    userName = "prtzl";
+    userEmail = "matej.blagsic@protonmail.com";
+    extraConfig = {
+      core = {
+        init.defaultBranch = "master";
+      };
+    };
+  };
 }
