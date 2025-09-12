@@ -23,7 +23,7 @@
 
       externalModules = [
         inputs.nvimnix
-        # inputs.nix-monitored
+        inputs.nix-monitored
       ];
 
       my = import ./lib/my-system.nix {

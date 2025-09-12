@@ -1,5 +1,4 @@
 {
-  config,
   lib,
   local,
   machineInfo,
@@ -26,10 +25,33 @@
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     loader.systemd-boot.enable = lib.mkDefault true;
     loader.efi.canTouchEfiVariables = lib.mkDefault true;
+    # Silent boot
+    consoleLogLevel = 3;
+    initrd.verbose = false;
+    # loader.timeout = 0;
+    kernelParams = [
+      "quiet"
+      "splash"
+      "boot.shell_on_fail"
+      "udev.log_level=3"
+      "rd.systemd.show_status=auto"
+    ];
+    plymouth = {
+      enable = true;
+      theme = "rings";
+      themePackages = with pkgs; [
+        (adi1090x-plymouth-themes.override {
+          selected_themes = [ "rings" ];
+        })
+      ];
+    };
   };
 
   nix = {
-    # monitored.notify = false;
+    monitored = {
+      enable = true;
+      notify = false;
+    };
     registry = {
       stable.flake = local.nixpkgs;
       unstable.flake = local.nixpkgs-unstable;

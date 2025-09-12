@@ -8,11 +8,11 @@
 
 let
   importModules =
-    {
-      type,
-      system,
-    }:
-    lib.map (module: module.${type}.${system}.default) externalModules;
+    type:
+    lib.concatMap (
+      module: if (module ? ${type}) then [ module.${type}.default ] else [ ]
+    ) externalModules;
+
   mkSystem =
     {
       pillow,
@@ -35,10 +35,7 @@ let
             }
           )
         ]
-        ++ (importModules {
-          type = "nixosModules";
-          inherit system;
-        });
+        ++ (importModules "nixosModules");
       specialArgs = specialArgs // {
         inherit pillow;
       };
@@ -57,10 +54,6 @@ let
     let
       homeImports =
         imports
-        ++ (importModules {
-          type = "homeManagerModules";
-          system = pillow.hostPlatform;
-        })
         ++ [
           (
             { ... }:
@@ -68,7 +61,8 @@ let
               home.stateVersion = version;
             }
           )
-        ];
+        ]
+        ++ (importModules "homeManagerModules");
     in
     {
       # Home Manager config for this user
