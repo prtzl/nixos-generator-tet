@@ -5,15 +5,11 @@
       url = "github:nix-community/home-manager/release-25.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nvimnix.url = "github:prtzl/nvimnix";
   };
 
   outputs =
-    {
-      self,
-      nixpkgs,
-      home-manager,
-      ...
-    }:
+    {self, nixpkgs, home-manager, nvimnix, ...}:
     let
       lib = nixpkgs.lib;
 

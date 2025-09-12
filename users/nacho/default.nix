@@ -1,6 +1,7 @@
 {
   lib,
   my,
+  pkgs,
   pillow,
   ...
 }:
@@ -14,6 +15,7 @@ my.mkUser pillow {
 
         programs.zsh.enable = true;
         programs.git.enable = true;
+	home.packages = with pkgs; [ tmux ];
       }
     )
   ];

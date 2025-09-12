@@ -14,6 +14,7 @@ my.mkSystem {
 
   modules = [
     ../../users/nacho
+    inputs.nvimnix.nixosModules."x86_64-linux".nvimnix
 
     # Inline minimal system config
     (
@@ -28,6 +29,11 @@ my.mkSystem {
         networking.hostName = "minimal";
         networking.useDHCP = true;
 
+	programs.nvimnix.enable = true;
+
+	nix.extraOptions = ''
+		experimental-features = nix-command flakes
+	'';
 
         environment.systemPackages = with pkgs; [
           vim
