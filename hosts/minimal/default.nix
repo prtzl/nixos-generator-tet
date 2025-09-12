@@ -5,6 +5,14 @@
   ...
 }:
 
+let
+  machineInfo = rec {
+    name = "minimal";
+    hostname = name;
+    interfaces = [ "enp1s0" ];
+    disks = [ "/" ];
+  };
+in
 my.mkSystem {
   pillow = {
     edition = "server";
@@ -21,5 +29,6 @@ my.mkSystem {
   specialArgs = {
     local = inputs;
     inherit lib my;
+    inherit machineInfo;
   };
 }
