@@ -2,21 +2,36 @@
   lib,
   nixpkgs,
   home-manager,
-  homeModules ? [ ],
+  externalModules ? [ ],
 }:
 
 let
+  importModules =
+    {
+      type,
+      system,
+    }:
+    lib.map (module: module.${type}.${system}.default) externalModules;
   mkSystem =
     {
       pillow,
       modules,
       specialArgs ? { },
     }:
-    lib.nixosSystem {
+    let
       system = pillow.hostPlatform;
-      modules = modules ++ [
-        home-manager.nixosModules.home-manager
-      ];
+    in
+    lib.nixosSystem {
+      inherit system;
+      modules =
+        modules
+        ++ [
+          home-manager.nixosModules.home-manager
+        ]
+        ++ (importModules {
+          type = "nixosModules";
+          inherit system;
+        });
       specialArgs = specialArgs // {
         inherit pillow;
       };
@@ -34,7 +49,11 @@ let
     }:
     let
       homeImports =
-        imports ++ lib.map (module: module.homeManagerModules.${pillow.hostPlatform}.default) homeModules;
+        imports
+        ++ (importModules {
+          type = "homeManagerModules";
+          system = pillow.hostPlatform;
+        });
     in
     {
       # Home Manager config for this user

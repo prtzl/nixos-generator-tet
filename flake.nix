@@ -16,7 +16,7 @@
       home-manager = inputs.home-manager;
       lib = nixpkgs.lib;
 
-      homeModules = [
+      externalModules = [
         inputs.nvimnix
       ];
 
@@ -25,7 +25,7 @@
           lib
           nixpkgs
           home-manager
-          homeModules
+          externalModules
           ;
       };
 
