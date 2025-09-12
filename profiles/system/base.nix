@@ -20,6 +20,8 @@
       ../../profiles/system/base/wine.nix
     ];
 
+  nixpkgs.hostPlatform = lib.mkDefault "${pillow.hostPlatform}";
+
   # Some stuff that can change based on system, so use mkDefault
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

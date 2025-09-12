@@ -28,6 +28,7 @@
   home.packages =
     with pkgs;
     [
+      dysk
       ffmpeg-full # yes
     ]
     ++ lib.optionals (pillow.edition == "workstation") [

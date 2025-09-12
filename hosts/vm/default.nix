@@ -6,7 +6,7 @@
 
 let
   machineInfo = rec {
-    name = "minimal";
+    name = "vm";
     hostname = name;
     interfaces = [ "enp1s0" ];
     disks = [ "/" ];
