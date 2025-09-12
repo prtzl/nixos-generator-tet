@@ -21,9 +21,9 @@
       home-manager = inputs.home-manager;
       lib = nixpkgs.lib // (import ./lib/utils.nix { inherit lib; });
 
-      externalModules = [
-        inputs.nvimnix
-        inputs.nix-monitored
+      externalModules = with inputs; [
+        nvimnix
+        nix-monitored
       ];
 
       my = import ./lib/my-system.nix {
