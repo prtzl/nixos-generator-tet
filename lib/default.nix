@@ -9,14 +9,18 @@ inputs.nixpkgs.lib.extend (
 
     inherit (import ./utils.nix { lib = prev; }) findModules;
 
-    my = import ./my-system.nix {
-      lib = final;
-      inherit
-        inputs
-        externalModules
-        version
-        ;
-    };
+    inherit
+      (import ./pillow.nix {
+        lib = final;
+        inherit
+          inputs
+          externalModules
+          version
+          ;
+      })
+      pillowSystem
+      pillowUser
+      ;
 
     collectHosts = import ./collect-hosts.nix {
       lib = final;

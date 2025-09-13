@@ -1,7 +1,7 @@
 {
   inputs,
   lib,
-  my,
+  pillow,
 }:
 
 let
@@ -37,7 +37,7 @@ let
     ];
   };
 in
-my.mkSystem {
+pillow.mkSystem {
   pillow = {
     edition = "workstation";
     buildPlatform = "x86_64-linux"; # where you build it
@@ -53,7 +53,8 @@ my.mkSystem {
 
   specialArgs = {
     local = inputs;
-    inherit lib my;
+    inherit lib;
+    inherit (lib) pillow;
     machineInfo = machine;
   };
 }

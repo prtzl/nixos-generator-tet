@@ -1,7 +1,6 @@
 {
   inputs,
   lib,
-  my,
 }:
 
 let
@@ -12,7 +11,7 @@ let
     disks = [ "/" ];
   };
 in
-my.mkSystem {
+lib.pillowSystem {
   pillow = {
     edition = "workstation";
     buildPlatform = "x86_64-linux"; # where you build it
@@ -32,7 +31,7 @@ my.mkSystem {
 
   specialArgs = {
     local = inputs;
-    inherit lib my;
+    inherit lib;
     inherit machineInfo;
   };
 }

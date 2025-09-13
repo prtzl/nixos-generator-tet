@@ -1,11 +1,11 @@
 {
-  my,
+  lib,
   pillow,
   machineInfo,
   ...
 }:
 
-my.mkUser pillow {
+lib.pillowUser pillow {
   imports = [
     ./configuration.nix
   ];

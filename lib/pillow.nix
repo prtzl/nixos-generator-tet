@@ -13,7 +13,7 @@ let
       module: if (module ? ${type}) then [ module.${type}.default ] else [ ]
     ) externalModules;
 
-  mkSystem =
+  pillowSystem =
     {
       pillow,
       modules,
@@ -54,7 +54,7 @@ let
       };
     };
 
-  mkUser =
+  pillowUser =
     pillow:
     {
       imports,
@@ -103,5 +103,5 @@ let
     };
 in
 {
-  inherit mkSystem mkUser;
+  inherit pillowSystem pillowUser;
 }
