@@ -1,6 +1,5 @@
 {
   lib,
-  nixos-hardware,
   ...
 }:
 
