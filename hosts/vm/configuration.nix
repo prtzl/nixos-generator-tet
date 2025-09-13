@@ -1,9 +1,12 @@
 {
+  lib,
   ...
 }:
 
 {
-  imports = [ ../../profiles/system/base.nix ];
+  imports = with (lib.findModules ../../profiles/system); [
+    base
+  ];
 
   boot = {
     initrd.availableKernelModules = [

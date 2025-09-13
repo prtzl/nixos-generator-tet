@@ -5,8 +5,8 @@
   ...
 }:
 {
-  imports = [
-    ../../profiles/home/base.nix
+  imports = with (lib.findModules ../../profiles/home); [
+    base
   ];
 
   home.packages =

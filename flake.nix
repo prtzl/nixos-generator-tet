@@ -19,13 +19,55 @@
       version = "25.05";
       nixpkgs = inputs.nixpkgs;
       home-manager = inputs.home-manager;
-      findModules = import ./lib/utils.nix { inherit lib; };
+      # findModules = import ./lib/utils.nix { inherit lib; };
       # This don't work ... somehow. I'm now doing this wherever I use it
+      # lib = import ./lib/lib {
+      #   inherit inputs;
+      #   inherit (nixpkgs) lib;
+      # };
+      # lib = nixpkgs.lib;
       lib = nixpkgs.lib.extend (
-        self: super: {
-          lib = self.lib // {
-            findModules = import ./lib/utils.nix { inherit (self) lib; };
-          };
+        final: prev: with builtins; rec {
+          not = x: !x;
+          isEmpty = x: x == null || x == "" || x == [ ] || x == { };
+          isNotEmpty = x: not (isEmpty x);
+          recursiveConcat = with prev; foldr recursiveUpdate { };
+
+          foreach =
+            with prev;
+            xs: f:
+            recursiveConcat (
+              if isList xs then
+                map f xs
+              else if isAttrs xs then
+                mapAttrsToList f xs
+              else
+                throw "lib.foreach: First argument is of type ${builtins.typeOf xs}, but a list or attrset was expected."
+            );
+
+          findModules =
+            with prev;
+            dir:
+            foreach (readDir dir) (
+              name: value:
+              let
+                fullPath = dir + "/${name}";
+                isNixModule = value == "regular" && hasSuffix ".nix" name && name != "default.nix";
+                isDir = value == "directory";
+                isDirModule = isDir && readDir fullPath ? "default.nix";
+                module = nameValuePair (removeSuffix ".nix" name) (
+                  if isNixModule || isDirModule then
+                    fullPath
+                  else if isDir then
+                    findModules fullPath
+                  else
+                    { }
+                );
+              in
+              optionalAttrs (isNotEmpty module.value) {
+                "${module.name}" = module.value;
+              }
+            );
         }
       );
 

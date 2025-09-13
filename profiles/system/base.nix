@@ -7,12 +7,9 @@
   ...
 }:
 
-let
-  findModules = import ../../lib/findModules.nix { inherit lib; };
-in
 {
   imports =
-    with (findModules ./base);
+    with (lib.findModules ./base);
     [
       fonts
     ]

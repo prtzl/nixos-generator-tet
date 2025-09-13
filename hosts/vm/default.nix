@@ -5,7 +5,8 @@
 }:
 
 let
-  findModules = import ../../lib/findModules.nix { inherit lib; };
+  # findModules = import ../../lib/findModules.nix { inherit lib; };
+  inherit (lib) findModules;
   machineInfo = rec {
     name = "vm";
     hostname = name;
