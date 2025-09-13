@@ -63,6 +63,7 @@ let
       initialHashedPassword ? null,
       extraGroups ? [ ],
       extraSpecialArgs ? { },
+      personal ? true,
     }:
     let
       homeImports =
@@ -88,10 +89,16 @@ let
         };
 
         # Add shared special args (applies globally, but you can merge all users' needs here)
-        extraSpecialArgs = {
-          inherit pillow;
-        }
-        // extraSpecialArgs;
+        extraSpecialArgs =
+          let
+            pillow_local = pillow // {
+              inherit personal;
+            };
+          in
+          {
+            pillow = pillow_local;
+          }
+          // extraSpecialArgs;
       };
 
       # NixOS user account
