@@ -1,13 +1,9 @@
 {
-  lib,
-  pillow,
   ...
 }:
 
 {
-  imports = [
-    ../../profiles/system/base.nix
-  ];
+  imports = [ ../../profiles/system/base.nix ];
 
   boot = {
     initrd.availableKernelModules = [

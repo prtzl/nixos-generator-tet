@@ -5,6 +5,7 @@
 }:
 
 let
+  findModules = import ../../lib/findModules.nix { inherit lib; };
   machineInfo = rec {
     name = "vm";
     hostname = name;
@@ -19,11 +20,15 @@ my.mkSystem {
     hostPlatform = "x86_64-linux"; # target system arch
   };
 
-  modules = [
-    ./configuration.nix
-    ../../users/nacho
-    ../../users/macho
-  ];
+  modules =
+    with (findModules ../../users);
+    [
+      nacho
+      macho
+    ]
+    ++ [
+      ./configuration.nix
+    ];
 
   specialArgs = {
     local = inputs;
