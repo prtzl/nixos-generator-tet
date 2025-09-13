@@ -21,10 +21,6 @@ let
     }:
     let
       system = pillow.hostPlatform;
-      pkgs-unfree = import inputs.nixpkgs {
-        inherit system;
-        config.allowUnfree = true;
-      };
     in
     lib.nixosSystem {
       inherit system;
@@ -36,12 +32,25 @@ let
             { ... }:
             {
               system.stateVersion = version;
+
+              nixpkgs.overlays = [
+                (final: prev: {
+                  pkgs-unfree = import inputs.nixpkgs {
+                    inherit system;
+                    config.allowUnfree = true;
+                  };
+                  pkgs-unstable = import inputs.nixpkgs-unstable {
+                    inherit system;
+                    config.allowUnfree = true;
+                  };
+                })
+              ];
             }
           )
         ]
         ++ (importModules "nixosModules");
       specialArgs = specialArgs // {
-        inherit pillow pkgs-unfree;
+        inherit pillow;
       };
     };
 
@@ -69,16 +78,21 @@ let
         ++ (importModules "homeManagerModules");
     in
     {
-      # Home Manager config for this user
-      home-manager.users.${name} = {
-        imports = homeImports;
-      };
+      home-manager = {
+        useGlobalPkgs = true; # <--- IMPORTANT: Uses nixpkgs from nixos
+        useUserPackages = true;
 
-      # Add shared special args (applies globally, but you can merge all users' needs here)
-      home-manager.extraSpecialArgs = {
-        inherit pillow;
-      }
-      // extraSpecialArgs;
+        # Home Manager config for this user
+        users.${name} = {
+          imports = homeImports;
+        };
+
+        # Add shared special args (applies globally, but you can merge all users' needs here)
+        extraSpecialArgs = {
+          inherit pillow;
+        }
+        // extraSpecialArgs;
+      };
 
       # NixOS user account
       users.users.${name} = {
