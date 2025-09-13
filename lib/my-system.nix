@@ -21,6 +21,10 @@ let
     }:
     let
       system = pillow.hostPlatform;
+      pkgs-unfree = import inputs.nixpkgs {
+        inherit system;
+        config.allowUnfree = true;
+      };
     in
     lib.nixosSystem {
       inherit system;
@@ -37,7 +41,7 @@ let
         ]
         ++ (importModules "nixosModules");
       specialArgs = specialArgs // {
-        inherit pillow;
+        inherit pillow pkgs-unfree;
       };
     };
 
