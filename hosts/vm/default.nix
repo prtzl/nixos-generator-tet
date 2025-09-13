@@ -5,8 +5,6 @@
 }:
 
 let
-  # findModules = import ../../lib/findModules.nix { inherit lib; };
-  inherit (lib) findModules;
   machineInfo = rec {
     name = "vm";
     hostname = name;
@@ -22,7 +20,7 @@ my.mkSystem {
   };
 
   modules =
-    with (findModules ../../users);
+    with (lib.findModules ../../users);
     [
       nacho
       macho
