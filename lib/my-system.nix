@@ -1,12 +1,12 @@
 {
   externalModules ? [ ],
-  home-manager,
+  inputs,
   lib,
-  nixpkgs,
   version,
 }:
 
 let
+  home-manager = inputs.home-manager;
   importModules =
     type:
     lib.concatMap (

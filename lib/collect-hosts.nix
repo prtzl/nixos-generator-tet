@@ -1,6 +1,5 @@
 {
   lib,
-  my,
   inputs,
 }:
 
@@ -12,8 +11,8 @@ let
   mkHost =
     name:
     import (./../hosts + "/${name}") {
-      inherit lib my;
-      inherit inputs;
+      inherit lib inputs;
+      inherit (lib) my;
     };
 in
 lib.genAttrs hostDirs mkHost

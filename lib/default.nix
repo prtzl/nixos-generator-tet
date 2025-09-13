@@ -11,8 +11,8 @@ inputs.nixpkgs.lib.extend (
 
     my = import ./my-system.nix {
       lib = final;
-      inherit (inputs) nixpkgs home-manager;
       inherit
+        inputs
         externalModules
         version
         ;
@@ -20,7 +20,6 @@ inputs.nixpkgs.lib.extend (
 
     collectHosts = import ./collect-hosts.nix {
       lib = final;
-      inherit (final) my;
       inputs = inputs;
     };
   }
