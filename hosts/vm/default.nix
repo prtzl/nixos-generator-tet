@@ -27,6 +27,7 @@ my.mkSystem {
     ]
     ++ [
       ./configuration.nix
+      ./disko.nix
     ];
 
   specialArgs = {

@@ -11,6 +11,10 @@
       url = "github:ners/nix-monitored";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -19,8 +23,9 @@
       version = "25.05";
 
       externalModules = with inputs; [
-        nvimnix
+        disko
         nix-monitored
+        nvimnix
       ];
 
       lib = import ./lib { inherit inputs version externalModules; };
