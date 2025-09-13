@@ -8,15 +8,20 @@
     base
   ];
 
+  services.spice-vdagentd.enable = true;
+  services.qemuGuest.enable = true;
+
   boot = {
-    initrd.availableKernelModules = [
+    initrd.kernelModules = [
       "ahci"
       "xhci_pci"
       "virtio_pci"
-      "sr_mod"
       "virtio_blk"
+      "virtio_net"
+      "virtio_balloon"
+      "virtio_rng"
+      "sr_mod"
     ];
-    initrd.kernelModules = [ ];
     kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
   };
