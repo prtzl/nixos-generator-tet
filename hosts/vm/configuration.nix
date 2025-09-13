@@ -9,6 +9,14 @@
     base
   ];
 
+  services.openssh = {
+    enable = true;
+    ports = [ 22 ];
+    settings = {
+      PasswordAuthentication = true;
+    };
+  };
+
   services.spice-vdagentd.enable = true;
   services.qemuGuest.enable = true;
 
