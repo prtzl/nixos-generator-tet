@@ -15,6 +15,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    nixos-hardware.url = "github:nixos/nixos-hardware";
   };
 
   outputs =

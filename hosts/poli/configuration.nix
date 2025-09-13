@@ -1,15 +1,15 @@
 {
   lib,
-  local,
+  nixos-hardware,
   ...
 }:
 
 {
   imports = [
-    local.nixos-hardware.nixosModules.common-cpu-amd
-    local.nixos-hardware.nixosModules.common-gpu-intel
-    local.nixos-hardware.nixosModules.common-pc
-    local.nixos-hardware.nixosModules.common-pc-ssd
+    nixos-hardware.common-cpu-amd
+    nixos-hardware.common-gpu-intel
+    nixos-hardware.common-pc
+    nixos-hardware.common-pc-ssd
   ]
   ++ (with (lib.findModules ../../profiles/system); [
     base

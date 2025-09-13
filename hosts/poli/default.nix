@@ -1,7 +1,7 @@
 {
   inputs,
   lib,
-  pillow,
+  nixos-hardware,
 }:
 
 let
@@ -37,7 +37,7 @@ let
     ];
   };
 in
-pillow.mkSystem {
+lib.pillowSystem {
   pillow = {
     edition = "workstation";
     buildPlatform = "x86_64-linux"; # where you build it

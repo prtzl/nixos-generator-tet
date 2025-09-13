@@ -79,6 +79,21 @@
         "type": "github"
       }
     },
+    "nixos-hardware": {
+      "locked": {
+        "lastModified": 1757103352,
+        "narHash": "sha256-PtT7ix43ss8PONJ1VJw3f6t2yAoGH+q462Sn8lrmWmk=",
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "rev": "11b2a10c7be726321bb854403fdeec391e798bf0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "repo": "nixos-hardware",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1757545623,
@@ -151,6 +166,7 @@
         "disko": "disko",
         "home-manager": "home-manager",
         "nix-monitored": "nix-monitored",
+        "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
         "nvimnix": "nvimnix"

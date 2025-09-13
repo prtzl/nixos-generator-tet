@@ -1,6 +1,7 @@
 {
   inputs,
   lib,
+  nixos-hardware,
 }:
 
 let
