@@ -100,15 +100,17 @@
   services = {
     xserver.xkb.layout = "us";
     fwupd.enable = true;
+    udisks2.enable = true; # daemon for mounting storage devices (usbs and such)
   };
 
   programs = {
     firefox = {
-      enable = (pillow.edition == "workstation");
+      enable = (pillow.edition == "workstation" || pillow.edition == "vm");
       package = pkgs.firefox;
     };
     usbtop.enable = true;
     zsh.enable = true;
+    gnome-disks.enable = (pillow.edition == "workstation" || pillow.edition == "vm");
   };
 
   users.defaultUserShell = pkgs.zsh;
@@ -136,7 +138,7 @@
         smartmontools # disk checks
         xh
       ]
-      ++ lib.optionals (pillow.edition == "workstation") [
+      ++ lib.optionals (pillow.edition == "workstation" || pillow.edition == "vm") [
         # file explorer
         xfce.thunar
         xfce.thunar-archive-plugin
@@ -150,6 +152,7 @@
         gthumb # image viewer
 
         # system utils
+        udiskie # automounts using udisks2
         usbutils # info on usb devices
         hwinfo # self explanatory
         pciutils # info on pci devices
