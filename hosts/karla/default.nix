@@ -21,6 +21,7 @@ lib.pillowSystem {
       temp_probes = [
         {
           path = "/dev/cpu_temp";
+          icon = "*";
         }
       ];
     };

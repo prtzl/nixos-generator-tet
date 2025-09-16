@@ -75,7 +75,7 @@
   # powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
   hardware = {
     # Following line fixed missing drivers for the wireless card when upgrading from 24.11 to 25.05.
-    enableAllFirmware = true;
+    enableRedistributableFirmware = true;
     cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
     bluetooth.enable = true;
     acpilight.enable = true;
