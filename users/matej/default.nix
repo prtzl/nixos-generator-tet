@@ -1,7 +1,6 @@
 {
   lib,
   pillow,
-  machineInfo,
   ...
 }:
 
@@ -31,6 +30,5 @@ lib.pillowUser pillow {
   ];
 
   extraSpecialArgs = {
-    machine = machineInfo;
   };
 }

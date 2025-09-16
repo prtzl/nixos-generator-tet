@@ -1,7 +1,6 @@
 {
   lib,
   local,
-  machineInfo,
   pillow,
   pkgs,
   ...
@@ -13,11 +12,14 @@
     [
       fonts
     ]
-    ++ lib.optionals (pillow.edition == "workstation") [
+    ++ lib.optionals (pillow.edition == "workstation" || pillow.edition == "virtual") [
       hyprland
       pipewire
       udev
       wine
+    ]
+    ++ lib.optionals (pillow.edition == "workstation" || pillow.edition == "server") [
+      virt
     ];
 
   nixpkgs.hostPlatform = lib.mkDefault "${pillow.hostPlatform}";
@@ -86,12 +88,12 @@
 
   systemd.network.wait-online.extraArgs = map (
     interface: "--interface=${interface}"
-  ) machineInfo.interfaces;
+  ) pillow.host.interfaces;
 
   networking = {
     enableIPv6 = false;
     firewall.enable = true;
-    hostName = machineInfo.hostname;
+    hostName = pillow.host.hostname;
     networkmanager.enable = true;
   };
   i18n.defaultLocale = "en_GB.UTF-8";

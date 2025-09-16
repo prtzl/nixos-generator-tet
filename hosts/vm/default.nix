@@ -4,19 +4,18 @@
   ...
 }:
 
-let
-  machineInfo = rec {
-    name = "vm";
-    hostname = name;
-    interfaces = [ "enp1s0" ];
-    disks = [ "/" ];
-  };
-in
 lib.pillowSystem {
   pillow = {
-    edition = "workstation";
-    buildPlatform = "x86_64-linux"; # where you build it
-    hostPlatform = "x86_64-linux"; # target system arch
+    edition = "virtual";
+    buildPlatform = "x86_64-linux";
+    hostPlatform = "x86_64-linux";
+
+    host = rec {
+      name = "vm";
+      hostname = name;
+      interfaces = [ "enp1s0" ];
+      disks = [ "/" ];
+    };
   };
 
   modules =
@@ -33,6 +32,5 @@ lib.pillowSystem {
   specialArgs = {
     local = inputs;
     inherit lib;
-    inherit machineInfo;
   };
 }

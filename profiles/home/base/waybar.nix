@@ -1,11 +1,15 @@
 {
   lib,
-  machine,
   pkgs,
+  pillow,
   ...
 }:
 
 let
+  # my own special sauce info source
+  # Pillow holds host specific information, but I want to keep the profiles "more generic"
+  machine = pillow.host;
+
   # Load base configs, we'll add device specific configs to these
   baseconfig = (builtins.fromJSON (builtins.readFile ./dotfiles/waybar/config));
   basestyle = builtins.readFile ./dotfiles/waybar/style.css;
