@@ -29,6 +29,7 @@ in
         vertical_alignment = "center";
         width = "(0, 1000)";
         height = "(0, 360)";
+        offset = "(0, 0)";
         separator_height = 2;
         progress_bar_height = 5;
         show_indicators = "no";
