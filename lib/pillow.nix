@@ -21,22 +21,17 @@ in
       hasGUI,
       hostPlatform,
       host,
-      ...
-    }@others:
-    let
-      pillow = {
-        inherit
-          buildPlatform
-          edition
-          hasGUI
-          hostPlatform
-          host
-          others
-          ;
-        onHardware = (hostPlatform == "workstation" || hostPlatform == "virtual");
-      };
-    in
-    pillow;
+    }:
+    {
+      inherit
+        buildPlatform
+        edition
+        hasGUI
+        host
+        hostPlatform
+        ;
+      onHardware = (edition == "workstation" || edition == "virtual");
+    };
 
   pillowSystem =
     {

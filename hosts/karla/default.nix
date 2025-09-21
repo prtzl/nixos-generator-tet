@@ -29,10 +29,9 @@ lib.pillowSystem {
   };
 
   modules =
-    with (lib.findModules ../../users);
-    [
+    (with (lib.findModules ../../users); [
       matej
-    ]
+    ])
     ++ [
       ./configuration.nix
       ./disko.nix
@@ -41,6 +40,5 @@ lib.pillowSystem {
 
   specialArgs = {
     local = inputs;
-    inherit lib;
   };
 }
