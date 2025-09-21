@@ -77,6 +77,7 @@
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
     loader.systemd-boot.enable = lib.mkDefault true;
     loader.efi.canTouchEfiVariables = lib.mkDefault true;
+    # Following nonsense with plymouth is to enable startup animation
     # Silent boot
     consoleLogLevel = 3;
     initrd.verbose = false;
@@ -105,6 +106,7 @@
       notify = false;
     };
     registry = {
+      # nixpkgs (default) == stable branch (my default)
       stable.flake = local.nixpkgs;
       unstable.flake = local.nixpkgs-unstable;
       master.to = {
