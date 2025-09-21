@@ -12,6 +12,31 @@ let
     lib.concatMap (
       module: if (module ? ${type}) then [ module.${type}.default ] else [ ]
     ) externalModules;
+in
+{
+  makePillowArgs =
+    {
+      buildPlatform,
+      edition,
+      hasGUI,
+      hostPlatform,
+      host,
+      ...
+    }@others:
+    let
+      pillow = {
+        inherit
+          buildPlatform
+          edition
+          hasGUI
+          hostPlatform
+          host
+          others
+          ;
+        onHardware = (hostPlatform == "workstation" || hostPlatform == "virtual");
+      };
+    in
+    pillow;
 
   pillowSystem =
     {
@@ -108,7 +133,4 @@ let
         initialHashedPassword = initialHashedPassword;
       };
     };
-in
-{
-  inherit pillowSystem pillowUser;
 }

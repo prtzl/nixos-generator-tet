@@ -3,77 +3,7 @@
   ...
 }:
 
-let
-  wslgit = pkgs.writeShellScriptBin "wslgit" (builtins.readFile ./dotfiles/wslgit.sh);
-in
 {
-  imports = [ ./starship.nix ];
-
-  home.packages = with pkgs; [
-    bat
-    eza
-    fd
-    fzf
-    lazygit
-    ripgrep
-    tree
-    wslgit
-    xclip
-    zsh-completions
-  ];
-
-  programs.direnv = {
-    enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-    nix-direnv.enable = true;
-  };
-
-  programs.fzf = {
-    enable = true;
-    enableZshIntegration = true;
-    enableBashIntegration = true;
-    fileWidgetOptions = [
-      "--walker-skip .git,node_modules,target"
-      "--preview 'bat -n --color=always {}'"
-      "--bind 'ctrl-/:change-preview-window(down|hidden|)'"
-    ];
-    changeDirWidgetOptions = [
-      "--walker-skip .git,node_modules,target"
-      "--preview 'tree -C {}'"
-    ];
-    historyWidgetOptions = [
-      "--bind 'ctrl-y:execute-silent(echo -n {2..} | pbcopy)+abort'"
-      "--color header:italic"
-      "--header 'Press CTRL-Y to copy command into clipboard'"
-    ];
-  };
-
-  # Let's configure bash with even starship, fzf, and direnv when needed
-  # zsh seems to have features I like, but I can still have good
-  # ux when bash is required for compatability (nix develop)
-  programs.bash = {
-    enable = true;
-    enableCompletion = true;
-    historySize = 100000;
-    shellAliases = {
-      ls = "eza --group-directories-first --color=always --icons";
-      l = "ls -la";
-      ll = "ls -l";
-      grep = "grep --color=always -n";
-      xclip = "xclip -selection clipboard";
-
-      # System
-      reboot = ''read -s \?"Reboot? [ENTER]: " && if [ -z "$REPLY" ];then env reboot;else echo "Canceled";fi'';
-      poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
-      udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
-    };
-    initExtra = ''
-      # Prevents direnv from yapping too much
-      export DIRENV_LOG_FORMAT=""
-    '';
-  };
-
   programs.zsh = {
     enable = true;
     enableCompletion = true;
@@ -157,9 +87,5 @@ in
         du -h "''${1:-.}" --max-depth=1 2> /dev/null | sort -hr
       }
     '';
-  };
-
-  home.sessionVariables = {
-    TERM = "xterm-256color";
   };
 }

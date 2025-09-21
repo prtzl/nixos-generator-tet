@@ -1,13 +1,9 @@
 {
-  lib,
-  pillow,
   ...
 }:
 
 {
-  imports = with (lib.findModules ../../profiles/home); [
-    base
-  ];
+  imports = [ ../../profiles/home ];
 
   programs.git = {
     userName = "prtzl";

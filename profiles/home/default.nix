@@ -7,22 +7,19 @@
 
 {
   imports =
-    with (lib.findModules ./base);
+    with (lib.findModules ./units);
     [
+      ./units/shell
       btop
       git
       nvim
       ranger
-      shell
       tmux
     ]
-    ++ lib.optionals (pillow.edition == "workstation") [
+    ++ lib.optionals (pillow.hasGUI) [
+      ./units/gui
       alacritty
-      dunst
-      hyprland
-      themes
       tio
-      waybar
     ];
 
   home.packages =
@@ -31,7 +28,7 @@
       dysk
       ffmpeg-full # yes
     ]
-    ++ lib.optionals (pillow.edition == "workstation") [
+    ++ lib.optionals (pillow.hasGUI) [
       # Web
       ungoogled-chromium
       transmission_4-gtk

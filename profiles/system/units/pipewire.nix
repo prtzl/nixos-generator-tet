@@ -6,11 +6,7 @@
 }:
 
 {
-  environment.systemPackages =
-    with pkgs;
-    [
-    ]
-    ++ lib.optionals (pillow.edition == "workstation") [ qpwgraph ];
+  environment.systemPackages = with pkgs; lib.optionals (pillow.hasGUI) [ qpwgraph ];
 
   security.rtkit.enable = true;
   services.pipewire = {

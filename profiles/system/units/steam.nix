@@ -15,7 +15,7 @@
       "steam-unwrapped"
     ];
 
-  programs.steam = lib.optionals (pillow.edition == "workstation") {
+  programs.steam = lib.optionals {
     enable = true;
     remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
     dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server

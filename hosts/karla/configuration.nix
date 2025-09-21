@@ -5,9 +5,7 @@
 }:
 
 {
-  imports = with (lib.findModules ../../profiles/system); [
-    base
-  ];
+  imports = [ ../../profiles/system ];
 
   services = {
     acpid.enable = true;

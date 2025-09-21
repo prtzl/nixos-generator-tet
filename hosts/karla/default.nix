@@ -5,10 +5,11 @@
 }:
 
 lib.pillowSystem {
-  pillow = {
-    edition = "workstation";
+  pillow = lib.makePillowArgs {
+    edition = "virtual";
     buildPlatform = "x86_64-linux";
     hostPlatform = "x86_64-linux";
+    hasGUI = true;
 
     host = rec {
       name = "karla";

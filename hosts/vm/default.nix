@@ -6,7 +6,6 @@
 
 lib.pillowSystem {
   pillow = {
-    edition = "virtual";
     buildPlatform = "x86_64-linux";
     hostPlatform = "x86_64-linux";
 

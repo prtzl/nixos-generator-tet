@@ -8,6 +8,10 @@ rec {
   isNotEmpty = x: not (isEmpty x);
   recursiveConcat = foldr recursiveUpdate { };
 
+  requiredAttr =
+    name: set:
+    if hasAttr name set then getAttr name set else throw "Missing required config: pillow.${name}!";
+
   foreach =
     xs: f:
     recursiveConcat (
