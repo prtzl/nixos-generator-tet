@@ -36,6 +36,7 @@ lib.pillowSystem {
     ++ [
       ./configuration.nix
       ./disko.nix
+      ../../profiles/system
     ];
 
   specialArgs = {
