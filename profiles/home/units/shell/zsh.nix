@@ -1,11 +1,12 @@
 {
-  pkgs,
   ...
 }:
 
 {
   programs.zsh = {
     enable = true;
+    autocd = true;
+    dotDir = ".config/zsh";
     enableCompletion = true;
     autosuggestion.enable = true;
     syntaxHighlighting.enable = true;
@@ -47,17 +48,11 @@
     };
 
     initContent = ''
-      autoload -U colors && colors
-
+      # Nice completion with menus 
       zstyle ':completion:*' menu select
       zstyle ':completion:*' group-name ""
       zstyle ':completion:*' matcher-list "" 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=*' 'l:|=* r:|=*'
       _comp_options+=(globdots)
-
-      # Add history command complete
-      source ${pkgs.zsh-history-substring-search}/share/zsh-history-substring-search/zsh-history-substring-search.zsh
-      bindkey "^[[A" history-substring-search-up
-      bindkey "^[[B" history-substring-search-down      
 
       # F$cked keys, give them back
       bindkey "^[[3~" delete-char
@@ -78,10 +73,6 @@
 
       # Prevents direnv from yapping too much
       export DIRENV_LOG_FORMAT=""
-
-      viewimage() {
-        gthumb "''${@:-.}" >/dev/null 2>&1 & disown
-      }
 
       usage() {
         du -h "''${1:-.}" --max-depth=1 2> /dev/null | sort -hr
