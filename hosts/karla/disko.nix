@@ -2,7 +2,7 @@
   disko.devices = {
     disk = {
       my-disk = {
-        device = "/dev/vda";
+        device = "7a6f34f3-cccb-4bc2-afd7-da5f1114acd6";
         type = "disk";
         content = {
           type = "gpt";
@@ -23,7 +23,7 @@
               size = "100%";
               content = {
                 type = "filesystem";
-                format = "ext4";
+                format = "xfs";
                 mountpoint = "/";
               };
             };
