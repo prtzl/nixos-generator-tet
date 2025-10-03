@@ -159,11 +159,14 @@
 
   services = {
     fwupd.enable = true;
-    localtimed.enable = true;
+    geoclue2.enable = true; # required for localtimed (fails if not found)
+    localtimed.enable = true; # time and datre control (otherwise I'm off :O
     printing.enable = pillow.onHardware;
     udisks2.enable = true; # daemon for mounting storage devices (usbs and such)
     usbmuxd.enable = pillow.onHardware;
   };
+
+  location.provider = "geoclue2"; # required for geoclue2 service, which ...
 
   programs = {
     firefox.enable = pillow.hasGUI;
