@@ -5,11 +5,13 @@
 }:
 
 lib.pillowSystem {
-  pillow = {
+  pillow = lib.makePillowArgs {
+    edition = "workstation";
     buildPlatform = "x86_64-linux"; # where you build it
     hostPlatform = "x86_64-linux"; # target system arch
+    hasGUI = true;
 
-    machine = rec {
+    host = rec {
       name = "poli";
       hostname = name;
       interfaces = [ "enp13s0" ];
@@ -42,13 +44,19 @@ lib.pillowSystem {
     };
   };
 
-  modules = with (lib.findModules ../../users); [
-    ./configuration.nix
-    matej
-  ];
+  modules =
+    (with (lib.findModules ../../users); [
+      matej
+    ])
+    ++ [
+      ./configuration.nix
+      ./disko.nix
+      ./hardware-configuration.nix
+      ./udev.nix
+      ../../profiles/system
+    ];
 
   specialArgs = {
     local = inputs;
-    inherit lib;
   };
 }
