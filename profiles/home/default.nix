@@ -19,6 +19,7 @@
     ++ lib.optionals (pillow.hasGUI) [
       ./units/gui
       alacritty
+      audacity
     ]
     ++ lib.optionals (pillow.onHardware) [
       tio
