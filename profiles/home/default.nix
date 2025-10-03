@@ -19,6 +19,8 @@
     ++ lib.optionals (pillow.hasGUI) [
       ./units/gui
       alacritty
+    ]
+    ++ lib.optionals (pillow.onHardware) [
       tio
     ];
 
