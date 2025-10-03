@@ -1,3 +1,23 @@
 #!/usr/bin/env bash
 
-sudo nix --experimental-features "nix-command flakes" run github:nix-community/disko/latest -- --mode destroy,format,mount /tmp/disk-config.nix
+host=$1
+diskodir="./hosts/${host}"
+
+if [[ "$host" == "" ]]; then
+    echo "Host not defined!"
+    exit 1
+fi
+
+if [ ! -d "$diskodir" ]; then
+    echo "Host $host does not have a configuration directory: $diskodir !"
+    exit 1
+fi
+
+diskofile="${diskodir}/disko.nix"
+
+if [ ! -f "$diskofile" ]; then
+    echo "Disko configuration file for host $host does not exist: $diskofile"
+    exit 1
+fi
+
+sudo nix --experimental-features "nix-command flakes" run .#disko -- --mode destroy,format,mount $diskofile
