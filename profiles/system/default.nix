@@ -75,8 +75,13 @@
   # Some stuff that can change based on system, so use mkDefault
   boot = {
     kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    loader.systemd-boot.enable = lib.mkDefault true;
-    loader.efi.canTouchEfiVariables = lib.mkDefault true;
+    loader = {
+      systemd-boot = {
+        enable = lib.mkDefault true;
+        consoleMode = "max";
+      };
+      efi.canTouchEfiVariables = lib.mkDefault true;
+    };
     # Following nonsense with plymouth is to enable startup animation
     # Silent boot
     consoleLogLevel = 3;
