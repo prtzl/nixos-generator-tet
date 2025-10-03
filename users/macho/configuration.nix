@@ -1,12 +1,9 @@
 {
-  pkgs,
-  lib,
-  pillow,
   ...
 }:
 {
   imports = [
-    ../../profiles/home/base.nix
+    ../../profiles/home
   ];
 
   programs.git = {

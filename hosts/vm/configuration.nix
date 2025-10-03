@@ -4,10 +4,6 @@
 }:
 
 {
-  imports = with (lib.findModules ../../profiles/system); [
-    base
-  ];
-
   services.openssh = {
     enable = true;
     ports = [ 22 ];
