@@ -19,7 +19,6 @@
     ++ lib.optionals (pillow.hasGUI) [
       ./units/gui
       alacritty
-      audacity
     ]
     ++ lib.optionals (pillow.onHardware) [
       tio
@@ -37,9 +36,15 @@
       transmission_4-gtk
 
       # Utility
-      pkgs-unfree.enpass # unstable is unfree
+      pkgs-unfree.enpass
 
       # Communication
       signal-desktop
+
+      # creation
+      audacity
+      libreoffice
+      gimp
+      inkscape
     ];
 }
