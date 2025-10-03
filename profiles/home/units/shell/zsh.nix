@@ -42,7 +42,7 @@
       ignoreAllDups = true;
       ignoreDups = true;
       ignoreSpace = true;
-      path = ".config/zsh/.zsh_history";
+      path = "$HOME/.config/zsh/.zsh_history";
       save = 100000;
       share = true;
       size = 100000;
