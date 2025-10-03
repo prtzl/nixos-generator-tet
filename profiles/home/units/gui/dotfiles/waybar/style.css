@@ -2,14 +2,10 @@
     font-family: FiraCode Nerd Font;
     font-size: 1.3rem;
     font-weight: bold;
-    margin: -0.1rem 0.1rem;
-    min-height: 0;
 }
 
 window#waybar {
-    background-color: rgba(26, 26, 26, 0.4);
-    margin-left: 0;
-    margin-right: 0;
+    background-color: rgba(26, 26, 26, 1);
 }
 
 /* Should include global settings for ALL widgets, so only excluding the bar itself (configured a few lines up) */
@@ -24,14 +20,15 @@ window#waybar {
 #temperature,
 #tray,
 #workspaces {
-    background: rgba(26, 26, 26, 0.7);
-    border-radius: 0.6rem;
+    border: 0.3rem solid rgba(76, 76, 76, 1);
+    border-radius: 1rem;
     color: #fdf6e3;
-    margin: 0 0.2rem;
+    margin: 0 0.3rem;
     padding: 0 0.5rem;
 }
 
 #tray {
+    border: 0.3rem dashed rgba(76, 76, 76, 1);
     padding: 0 0.5rem;
 }
 #tray > .passive {
@@ -53,12 +50,14 @@ window#waybar {
 }
 #workspaces button.active {
     color: #1a1a1a;
+    border-radius: 0.8rem;
     background: white;
     transition: none;
 }
 #workspaces button.focused {
     color: @bg_active;
     transition: none;
+    border: 0.4rem;
 }
 #workspaces button.urgent {
     background:  rgba(255, 200, 0, 0.35);
@@ -72,25 +71,28 @@ window#waybar {
     transition: none;
 }
 
-/* #pulseaudio { */
-/*     color: #268bd2; */
-/* } */
 #pulseaudio.muted {
     color: #be2528;
     font-weight: bold;
 }
 
-/* #memory { */
-/*     color: #2aa198; */
-/* } */
-/**/
-/* #cpu { */
-/*     color: #6c71c4; */
-/* } */
-/**/
-/**/
-/* #custom-keyboard { */
-/*     color: #a6799d; */
-/* } */
+/* Colors for stationary items */
+
+#pulseaudio {
+    color: green;
+}
+
+#memory {
+    color: #2aa198;
+}
+
+#cpu {
+    color: #6c71c4;
+}
+
+
+#custom-keyboard {
+    color: #a6799d;
+}
 
 /* End of base style.css */

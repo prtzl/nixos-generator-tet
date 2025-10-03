@@ -17,22 +17,22 @@ lib.pillowSystem {
         {
           path = "/dev/cpu_temp";
           icon = "";
-          color = "#3ffc81";
+          color = "#43a047";
         }
         {
           path = "/dev/gpu_temp";
           icon = "󰍹";
-          color = "#982daf";
+          color = "#fb8c00";
         }
         {
           path = "/dev/water_temp";
           icon = "";
-          color = "#3385e6";
+          color = "#1e88e5";
         }
         {
           path = "/dev/motherboard_temp";
           icon = "";
-          color = "#982daf";
+          color = "#8e24aa";
         }
       ];
       disks = [

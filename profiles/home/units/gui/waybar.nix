@@ -107,7 +107,7 @@ let
     '' (lib.lists.imap1 (index: path: "#disk.${builtins.toString index}") selectedDisks)
     + ''
       {
-        color: #b58900;
+        color: #d4ac0d;
       }
     '';
 
@@ -143,7 +143,7 @@ let
     '' (lib.lists.imap1 (index: interface: "#network.${builtins.toString index}") selectedInterfaces)
     + ''
       {
-        color: #800080;
+        color: #2196f3;
       }
     '';
 
@@ -194,6 +194,6 @@ in
     systemd.enable = true;
     systemd.target = "hyprland-session.target";
     settings = [ config ];
-    style = basestyle; # = style, going emo
+    style = style;
   };
 }
