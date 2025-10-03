@@ -9,7 +9,9 @@
   programs.bash = {
     enable = true;
     enableCompletion = true;
-    historySize = 100000;
+    historyFile = ".config/bash/.bash_history";
+    historySize = 1000;
+    historyFileSize = 100000;
     shellAliases = {
       ls = "eza --group-directories-first --color=always --icons";
       l = "ls -la";
