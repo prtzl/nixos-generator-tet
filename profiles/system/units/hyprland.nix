@@ -27,16 +27,11 @@
     NIXOS_OZONE_WL = "1";
   };
 
-  # I still don't know  what this is. It ran fine without, but I guess this is better?
-  xdg.portal = {
-    enable = true;
-    # wlr.enable = true; # enable portals for wlroots-based desktops (hyprland too!)
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  };
-
   hardware.graphics = {
     enable = true;
     enable32Bit = true;
     extraPackages32 = with pkgs.pkgsi686Linux; [ libva ];
   };
+
+  xdg.portal.wlr.enable = true; # enable portals for wlroots-based desktops (hyprland too!)
 }

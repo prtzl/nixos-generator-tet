@@ -199,6 +199,12 @@
     ];
   };
 
+  xdg.portal = {
+    enable = true;
+    wlr.enable = true; # enable portals for wlroots-based desktops (hyprland too!)
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  };
+
   # xdg.mime.inverted.defaultApplications."gthumb.desktop" = lib.optionals (pillow.hasGUI) [
   #   "image/bmp"
   #   "image/gif"
