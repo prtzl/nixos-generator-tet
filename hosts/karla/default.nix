@@ -27,14 +27,10 @@ lib.pillowSystem {
   };
 
   modules =
-    (with (lib.findModules ../../users); [
+    (lib.findModulesList ./.)
+    ++ (with (lib.findModules ../../users); [
       matej
-    ])
-    ++ [
-      ./configuration.nix
-      ./disko.nix
-      ../../profiles/system
-    ];
+    ]);
 
   specialArgs = {
     local = inputs;

@@ -18,8 +18,9 @@ in
     {
       edition,
       hasGUI,
-      hostPlatform,
       host,
+      hostPlatform,
+      useDefaults ? true,
     }:
     {
       inherit
@@ -27,6 +28,7 @@ in
         hasGUI
         host
         hostPlatform
+        useDefaults
         ;
       onHardware = (edition == "workstation" || edition == "virtual");
     };
@@ -66,6 +68,7 @@ in
             }
           )
         ]
+        ++ (lib.optionals pillow.useDefaults [ ../profiles/system ])
         ++ (importModules "nixosModules");
       specialArgs = specialArgs // {
         inherit pillow;

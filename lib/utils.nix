@@ -45,4 +45,32 @@ rec {
         "${module.name}" = module.value;
       }
     );
+
+  pipef = flip pipe;
+  append = x: xs: xs ++ [ x ];
+
+  flattenAttrs =
+    cond:
+    pipef [
+      (mapAttrsToList (name: value: nameValuePair (singleton name) value))
+      (foldr (
+        p@{ name, value }:
+        acc:
+        if isAttrs value && cond value then
+          acc
+          ++ pipe value [
+            (flattenAttrs cond)
+            (map (mapName (n: name ++ n)))
+          ]
+        else
+          append p acc
+      ) [ ])
+    ];
+
+  # Same as `findModules`, but returns all the modules found in a list.
+  findModulesList = pipef [
+    findModules
+    (flattenAttrs (const true))
+    (map (x: x.value))
+  ];
 }

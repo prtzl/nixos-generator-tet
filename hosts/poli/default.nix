@@ -7,7 +7,7 @@
 lib.pillowSystem {
   pillow = lib.makePillowArgs {
     edition = "workstation";
-    hostPlatform = "x86_64-linux"; # target system arch
+    hostPlatform = "x86_64-linux";
     hasGUI = true;
 
     host = {
@@ -43,16 +43,10 @@ lib.pillowSystem {
   };
 
   modules =
-    (with (lib.findModules ../../users); [
+    (lib.findModulesList ./.)
+    ++ (with (lib.findModules ../../users); [
       matej
-    ])
-    ++ [
-      ./configuration.nix
-      ./disko.nix
-      ./hardware-configuration.nix
-      ./udev.nix
-      ../../profiles/system
-    ];
+    ]);
 
   specialArgs = {
     local = inputs;

@@ -18,16 +18,11 @@ lib.pillowSystem {
   };
 
   modules =
-    with (lib.findModules ../../users);
-    [
-      nacho
+    (lib.findModulesList ./.)
+    ++ (with (lib.findModules ../../users); [
       macho
-    ]
-    ++ [
-      ./configuration.nix
-      ./disko.nix
-      ../../profiles/system
-    ];
+      nacho
+    ]);
 
   specialArgs = {
     local = inputs;
