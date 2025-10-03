@@ -10,9 +10,8 @@ lib.pillowSystem {
     hostPlatform = "x86_64-linux";
     hasGUI = true;
 
-    host = rec {
+    host = {
       name = "karla";
-      hostname = name;
       interfaces = [
         "wlp61s0"
         "enp0s31f6"

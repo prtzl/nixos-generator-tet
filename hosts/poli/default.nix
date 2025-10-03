@@ -10,9 +10,8 @@ lib.pillowSystem {
     hostPlatform = "x86_64-linux"; # target system arch
     hasGUI = true;
 
-    host = rec {
+    host = {
       name = "poli";
-      hostname = name;
       interfaces = [ "enp13s0" ];
       temp_probes = [
         {

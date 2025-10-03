@@ -10,9 +10,8 @@ lib.pillowSystem {
     hostPlatform = "x86_64-linux";
     hasGUI = true;
 
-    host = rec {
+    host = {
       name = "vm";
-      hostname = name;
       interfaces = [ "enp1s0" ];
       disks = [ "/" ];
     };

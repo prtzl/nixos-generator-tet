@@ -148,7 +148,7 @@
   networking = {
     enableIPv6 = false;
     firewall.enable = true;
-    hostName = pillow.host.hostname;
+    hostName = pillow.host.name;
     networkmanager.enable = true;
   };
 
