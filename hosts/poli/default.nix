@@ -7,7 +7,6 @@
 lib.pillowSystem {
   pillow = lib.makePillowArgs {
     edition = "workstation";
-    buildPlatform = "x86_64-linux"; # where you build it
     hostPlatform = "x86_64-linux"; # target system arch
     hasGUI = true;
 

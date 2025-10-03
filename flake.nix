@@ -34,5 +34,6 @@
     in
     {
       nixosConfigurations = lib.collectHosts;
+      packages."x86_64-linux".disko = inputs.disko.packages."x86_64-linux".default;
     };
 }

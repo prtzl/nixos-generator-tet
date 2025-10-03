@@ -16,7 +16,6 @@ in
 {
   makePillowArgs =
     {
-      buildPlatform,
       edition,
       hasGUI,
       hostPlatform,
@@ -24,7 +23,6 @@ in
     }:
     {
       inherit
-        buildPlatform
         edition
         hasGUI
         host
