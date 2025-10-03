@@ -10,11 +10,7 @@
   # Apps and configs
   imports =
     with (lib.findModules ./units);
-    [
-      fonts
-      wine
-    ]
-    ++ lib.optionals (pillow.edition == "workstation") [
+    lib.optionals (pillow.edition == "workstation") [
       virtual
     ]
     ++ lib.optionals (pillow.hasGUI) [
@@ -59,6 +55,10 @@
         # media
         vlc # video player
         gthumb # image viewer
+
+        # wine
+        wineWowPackages.waylandFull
+        winetricks
       ]
       ++ lib.optionals (pillow.onHardware) [
         hwinfo # self explanatory
@@ -176,6 +176,28 @@
   };
 
   users.defaultUserShell = pkgs.zsh;
+
+  fonts = {
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        serif = [ "Noto Serif" ];
+        sansSerif = [ "Noto Sans" ];
+        monospace = [ "FiraCode Nerd Font" ];
+        emoji = [ "Noto Color Emoji" ];
+      };
+    };
+    fontDir.enable = true;
+    packages = with pkgs; [
+      fira
+      fira-code
+      fira-mono
+      nerd-fonts.fira-code
+      noto-fonts
+      noto-fonts-emoji
+      noto-fonts-extra
+    ];
+  };
 
   # xdg.mime.inverted.defaultApplications."gthumb.desktop" = lib.optionals (pillow.hasGUI) [
   #   "image/bmp"
