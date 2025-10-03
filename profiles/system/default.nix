@@ -88,11 +88,11 @@
     initrd.verbose = false;
     # loader.timeout = 0;
     kernelParams = [
-      "quiet"
-      "splash"
       "boot.shell_on_fail"
-      "udev.log_level=3"
+      "quiet"
       "rd.systemd.show_status=auto"
+      "splash"
+      "udev.log_level=3"
     ];
     plymouth = {
       enable = true;
@@ -152,19 +152,24 @@
     networkmanager.enable = true;
   };
 
-  i18n.defaultLocale = "en_GB.UTF-8";
+  i18n = {
+    defaultLocale = "en_GB.UTF-8";
+    extraLocales = "all";
+  };
 
   services = {
-    xserver.xkb.layout = "us";
     fwupd.enable = true;
+    localtimed.enable = true;
+    printing.enable = pillow.onHardware;
     udisks2.enable = true; # daemon for mounting storage devices (usbs and such)
+    usbmuxd.enable = pillow.onHardware;
   };
 
   programs = {
     firefox.enable = pillow.hasGUI;
-    usbtop.enable = true;
-    zsh.enable = true;
     gnome-disks.enable = pillow.onHardware;
+    usbtop.enable = pillow.onHardware;
+    zsh.enable = true;
   };
 
   users.defaultUserShell = pkgs.zsh;
