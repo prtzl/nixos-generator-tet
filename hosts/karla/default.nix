@@ -4,7 +4,7 @@
   ...
 }:
 
-lib.pillowSystem {
+lib.pillowSystem rec {
   pillow = lib.makePillowArgs {
     edition = "workstation";
     hostPlatform = "x86_64-linux";
@@ -27,11 +27,11 @@ lib.pillowSystem {
     };
   };
 
-  modules =
-    (lib.findModulesList ./.)
-    ++ (with (lib.findModules ../../users); [
-      matej
-    ]);
+  modules = (lib.findModulesList ./.) ++ [
+    (import ../../users/matej {
+      inherit lib pillow;
+    })
+  ];
 
   specialArgs = {
     local = inputs;

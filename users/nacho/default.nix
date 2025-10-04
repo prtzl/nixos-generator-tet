@@ -10,15 +10,10 @@ lib.pillowUser pillow {
   ];
 
   name = "nacho";
-  uid = 1000;
+  privileged = false;
 
   initialHashedPassword = "$y$j9T$dummyhashfornow$yXUohY5bEl/XXXX"; # run `mkpasswd -m yescrypt`
-  extraGroups = [
-    "wheel"
-    "dialout"
-    "networkmanager"
-    "adbusers"
-  ];
+  extraGroups = [ ];
 
   extraSpecialArgs = {
   };

@@ -46,6 +46,9 @@ lib.pillowSystem rec {
     (import ../../users/matej {
       inherit lib pillow;
     })
+    (import ../../users/nacho {
+      inherit lib pillow;
+    })
   ];
 
   specialArgs = {

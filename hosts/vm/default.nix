@@ -4,7 +4,7 @@
   ...
 }:
 
-lib.pillowSystem {
+lib.pillowSystem rec {
   pillow = lib.makePillowArgs {
     edition = "virtual";
     hostPlatform = "x86_64-linux";
@@ -17,12 +17,14 @@ lib.pillowSystem {
     };
   };
 
-  modules =
-    (lib.findModulesList ./.)
-    ++ (with (lib.findModules ../../users); [
-      macho
-      nacho
-    ]);
+  modules = (lib.findModulesList ./.) ++ [
+    (import ../../users/macho {
+      inherit lib pillow;
+    })
+    (import ../../users/nacho {
+      inherit lib pillow;
+    })
+  ];
 
   specialArgs = {
     local = inputs;
