@@ -21,6 +21,7 @@ lib.pillowSystem {
         {
           path = "/dev/cpu_temp";
           icon = "";
+          color = "#43a047";
         }
       ];
     };
