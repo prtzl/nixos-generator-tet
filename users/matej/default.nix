@@ -17,16 +17,14 @@ lib.pillowUser pillow {
     "adbusers"
     "audio"
     "dialout"
-    "docker"
-    "kvm"
     "libvirtd"
     "networkmanager"
     "openrazer"
     "plugdev"
-    "podman"
     "usb"
     "video"
     "wheel"
+    "kakica"
   ];
 
   extraSpecialArgs = {

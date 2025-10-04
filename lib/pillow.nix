@@ -123,10 +123,21 @@ in
       };
 
       # NixOS user account
-      users.users.${name} = {
-        isNormalUser = true;
-        inherit uid name extraGroups;
-        initialHashedPassword = initialHashedPassword;
-      };
+      users.users.${name} =
+        let
+          extraGroups_local =
+            extraGroups
+            ++ (lib.optionals (pillow.edition == "workstation") [
+              "docker"
+              "podman"
+              "kvm"
+            ]);
+        in
+        {
+          isNormalUser = true;
+          inherit uid name;
+          extraGroups = extraGroups_local;
+          initialHashedPassword = initialHashedPassword;
+        };
     };
 }
