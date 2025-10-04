@@ -65,6 +65,12 @@ in
                   };
                 })
               ];
+
+              # Create group where all members (privileged) have access to /etc/nixos where the config SHOULD be placed
+              users.groups.nixos-editors = { };
+              systemd.tmpfiles.rules = [
+                "d /etc/nixos 0770 root nixos-editors -"
+              ];
             }
           )
         ]

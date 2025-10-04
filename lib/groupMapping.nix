@@ -23,6 +23,7 @@ let
     "kvm"
     "libvirtd"
     "networkmanager"
+    "nixos-editors"
     "podman"
     "wheel"
     "wireshark"
