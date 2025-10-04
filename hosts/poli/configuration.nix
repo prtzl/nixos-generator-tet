@@ -36,9 +36,16 @@ in
     ];
   };
 
-  # Also installs v4l2loopback kernel module if needed (otherwise home config should be fine)
-  programs.obs-studio = {
-    enable = true;
-    enableVirtualCamera = true;
+  hardware = {
+    openrazer.enable = true;
+  };
+
+  programs = {
+    obs-studio = {
+      enable = true;
+      # Also installs v4l2loopback kernel module if needed (otherwise home config should be fine)
+      enableVirtualCamera = true;
+    };
+    wireshark.enable = true;
   };
 }

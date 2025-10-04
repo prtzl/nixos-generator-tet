@@ -1,10 +1,29 @@
 {
+  lib,
+  pillow,
   pkgs,
   ...
 }:
 
 {
   virtualisation = {
+    libvirtd = {
+      enable = true;
+      onBoot = "ignore";
+      onShutdown = "shutdown";
+      qemu = {
+        ovmf = lib.mkMerge [
+          {
+            enable = true;
+          }
+          (lib.optionalAttrs (pillow.hostPlatform == "x86_64") {
+            packages = [ pkgs.OVMFFull.fd ];
+          })
+        ];
+        runAsRoot = false;
+      };
+    };
+    spiceUSBRedirection.enable = true;
     containers.enable = true; # some common stuff?
     docker.enable = true;
     podman = {
@@ -15,19 +34,27 @@
   };
 
   environment.systemPackages = with pkgs; [
+    dive # look into docker image layers
+    docker-compose
+    fuse-overlayfs
     libguestfs
+    podman-compose
+    podman-tui # status of containers in the terminal
     spice-gtk
     spice-vdagent
+    swtpm
     virt-manager
     virt-viewer
-    docker-compose
-    podman-compose
-    dive # look into docker image layers
-    podman-tui # status of containers in the terminal
   ];
 
-  boot.binfmt.emulatedSystems = [
-    "aarch64-linux"
-    "x86_64-windows"
-  ];
+  boot = {
+    binfmt.emulatedSystems = [
+      "aarch64-linux"
+      "x86_64-windows"
+    ];
+    kernelModules = [
+      "kvm-amd"
+      "kvm-intel"
+    ];
+  };
 }

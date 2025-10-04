@@ -6,12 +6,12 @@
 }:
 
 let
-  home-manager = inputs.home-manager;
   importModules =
     type:
     lib.concatMap (
       module: if (module ? ${type}) then [ module.${type}.default ] else [ ]
     ) externalModules;
+
 in
 {
   makePillowArgs =
@@ -47,7 +47,7 @@ in
       modules =
         modules
         ++ [
-          home-manager.nixosModules.home-manager
+          inputs.home-manager.nixosModules.home-manager
           (
             { ... }:
             {
@@ -80,12 +80,14 @@ in
     {
       imports,
       name,
-      uid ? 1000,
       initialHashedPassword ? null,
       extraGroups ? [ ],
       extraSpecialArgs ? { },
+      # since this is for me I want sensible defaults for me
       personal ? true,
+      privileged ? true,
     }:
+    { config, lib, ... }:
     let
       homeImports =
         imports
@@ -98,46 +100,40 @@ in
           )
         ]
         ++ (importModules "homeManagerModules");
+
+      groupMapping = import ../lib/groupMapping.nix { inherit config lib; };
+
+      allowedDynamicGroups =
+        if privileged then
+          groupMapping.dynamicGroups ++ groupMapping.privilegedGroups
+        else
+          lib.lists.intersectLists groupMapping.dynamicGroups groupMapping.baseGroups;
+
+      allGroups = lib.unique (allowedDynamicGroups ++ extraGroups);
     in
     {
-      home-manager = {
-        useGlobalPkgs = true; # <--- IMPORTANT: Uses nixpkgs from nixos
-        useUserPackages = true;
+      config = {
+        home-manager = {
+          useGlobalPkgs = true;
+          useUserPackages = true;
 
-        # Home Manager config for this user
-        users.${name} = {
-          imports = homeImports;
-        };
+          users.${name} = {
+            imports = homeImports;
+          };
 
-        # Add shared special args (applies globally, but you can merge all users' needs here)
-        extraSpecialArgs =
-          let
-            pillow_local = pillow // {
+          extraSpecialArgs = {
+            pillow = pillow // {
               inherit personal;
             };
-          in
-          {
-            pillow = pillow_local;
           }
           // extraSpecialArgs;
-      };
-
-      # NixOS user account
-      users.users.${name} =
-        let
-          extraGroups_local =
-            extraGroups
-            ++ (lib.optionals (pillow.edition == "workstation") [
-              "docker"
-              "podman"
-              "kvm"
-            ]);
-        in
-        {
-          isNormalUser = true;
-          inherit uid name;
-          extraGroups = extraGroups_local;
-          initialHashedPassword = initialHashedPassword;
         };
+
+        users.users.${name} = {
+          extraGroups = allGroups;
+          initialHashedPassword = initialHashedPassword;
+          isNormalUser = true;
+        };
+      };
     };
 }
