@@ -30,7 +30,7 @@ in
   ]);
 
   boot = {
-    kernelPackages = myKernel;
+    # kernelPackages = myKernel;
     kernelModules = [
       "nct6775" # nct6775: asrock board sensors
     ];
