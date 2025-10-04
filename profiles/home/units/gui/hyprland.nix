@@ -35,14 +35,6 @@ in
     hypershot_shader_toggle
   ];
 
-  # App launcher
-  programs.rofi = {
-    enable = true;
-    package = pkgs.rofi;
-    font = "FiraCode Nerd Font Mono 24";
-    theme = "Arc-Dark";
-  };
-
   # The jummy thing about this is that now as a service it reloads on configurations change automatically!
   wayland.windowManager.hyprland = {
     enable = true;
