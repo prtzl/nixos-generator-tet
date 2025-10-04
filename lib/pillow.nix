@@ -20,7 +20,7 @@ in
       hasGUI,
       host,
       hostPlatform,
-      settings,
+      settings ? { },
       useDefaults ? true,
     }:
     {
@@ -36,7 +36,6 @@ in
         name = host.name;
         interfaces = host.interfaces;
         disks = host.disks;
-        settings = if host ? settings then host.settings else { };
       };
       onHardware = (edition == "workstation" || edition == "virtual");
     };
