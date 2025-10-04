@@ -52,9 +52,5 @@
       "aarch64-linux"
       "x86_64-windows"
     ];
-    kernelModules = [
-      "kvm-amd"
-      "kvm-intel"
-    ];
   };
 }
