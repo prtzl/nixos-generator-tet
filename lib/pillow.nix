@@ -103,13 +103,13 @@ in
 
       groupMapping = import ../lib/groupMapping.nix { inherit config lib; };
 
-      allowedDynamicGroups =
-        if privileged then
-          groupMapping.dynamicGroups ++ groupMapping.privilegedGroups
-        else
-          lib.lists.intersectLists groupMapping.dynamicGroups groupMapping.baseGroups;
+      allowedGroups = lib.unique (
+        groupMapping.baseGroups
+        ++ (if privileged then groupMapping.privilegedGroups else [ ])
+        ++ groupMapping.dynamicGroups
+      );
 
-      allGroups = lib.unique (allowedDynamicGroups ++ extraGroups);
+      allGroups = lib.unique (allowedGroups ++ extraGroups);
     in
     {
       config = {
