@@ -1,5 +1,4 @@
 {
-  lib,
   ...
 }:
 
@@ -26,7 +25,6 @@
       "virtio_rng"
       "sr_mod"
     ];
-    kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
   };
 }
