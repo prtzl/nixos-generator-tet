@@ -103,6 +103,7 @@ in
 
       groupMapping = import ../lib/groupMapping.nix { inherit config lib; };
 
+      # Sum together base groups and priviledged groups (with dynamic)
       allowedGroups = lib.unique (
         groupMapping.baseGroups
         ++ (if privileged then groupMapping.privilegedGroups else [ ])
