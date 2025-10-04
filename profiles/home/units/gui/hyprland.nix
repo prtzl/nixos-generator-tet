@@ -1,6 +1,7 @@
 {
   lib,
   pkgs,
+  pillow,
   ...
 }:
 
@@ -45,6 +46,15 @@ in
     # Using this target for other services waiting for the "gui" to start (for example waybar)
     systemd.enable = true;
     extraConfig = builtins.readFile ./dotfiles/hyprland/hyprland.conf;
+    settings =
+      let
+        defaultSettings = {
+          monitor = lib.mkDefault [ ",preferred,auto,1" ];
+        };
+        userSettings = pillow.settings;
+        hyprlandSettings = if (userSettings ? hyprland) then userSettings.hyprland else { };
+      in
+      defaultSettings // hyprlandSettings;
   };
 
   systemd.user.services.hyprpaper.Unit.After = lib.mkForce "graphical-session.target";

@@ -20,16 +20,24 @@ in
       hasGUI,
       host,
       hostPlatform,
+      settings,
       useDefaults ? true,
     }:
     {
       inherit
         edition
         hasGUI
-        host
         hostPlatform
+        settings
         useDefaults
         ;
+      # my attempt at forcing user to declare necessary host fields
+      host = {
+        name = host.name;
+        interfaces = host.interfaces;
+        disks = host.disks;
+        settings = if host ? settings then host.settings else { };
+      };
       onHardware = (edition == "workstation" || edition == "virtual");
     };
 

@@ -15,6 +15,12 @@ lib.pillowSystem rec {
       interfaces = [ "enp1s0" ];
       disks = [ "/" ];
     };
+
+    settings.hyprland = {
+      monitor = [
+        ",1920x1080@60,auto,1"
+      ];
+    };
   };
 
   modules = (lib.findModulesList ./.) ++ [
