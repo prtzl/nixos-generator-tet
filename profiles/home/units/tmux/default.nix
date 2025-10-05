@@ -29,7 +29,7 @@ in
       # continuum plugin to work off of.
       run-shell "if [ ! -d ${resurrectDirPath} ]; then tmux new-session -d -s init-resurrect; ${pkgs.tmuxPlugins.resurrect}/share/tmux-plugins/resurrect/scripts/save.sh; fi"
     ''
-    + (builtins.readFile ./dotfiles/tmux/tmux.conf);
+    + (builtins.readFile ./tmux.conf);
     plugins = with pkgs.tmuxPlugins; [
       {
         plugin = resurrect;

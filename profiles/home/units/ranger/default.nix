@@ -8,6 +8,5 @@
     ranger
     ueberzug
   ];
-
-  home.file.".config/ranger/rc.conf".source = ./dotfiles/ranger/rc.conf;
+  xdg.configFile."ranger/rc.conf".source = ./rc.conf;
 }

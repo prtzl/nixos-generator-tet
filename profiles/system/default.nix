@@ -10,7 +10,8 @@
   # Apps and configs
   imports =
     with (lib.findModules ./units);
-    lib.optionals (pillow.edition == "workstation") [
+    [ update ]
+    ++ lib.optionals (pillow.edition == "workstation") [
       virtual
     ]
     ++ lib.optionals (pillow.hasGUI) [
