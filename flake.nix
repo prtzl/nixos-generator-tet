@@ -16,10 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nixos-hardware.url = "github:nixos/nixos-hardware";
+    flake-parts.url = "github:hercules-ci/flake-parts";
   };
 
   outputs =
-    inputs:
+    inputs@{ flake-parts, disko, ... }:
     let
       version = "25.05";
 
@@ -30,10 +31,18 @@
       ];
 
       lib = import ./lib { inherit inputs version externalModules; };
-
     in
-    {
-      nixosConfigurations = lib.collectHosts;
-      packages."x86_64-linux".disko = inputs.disko.packages."x86_64-linux".default;
+    flake-parts.lib.mkFlake { inherit inputs; } {
+
+      flake = {
+        nixosConfigurations = lib.collectHosts;
+      };
+
+      systems = builtins.attrNames disko.packages;
+      perSystem =
+        { pkgs, system, ... }:
+        {
+          packages.disko = disko.packages.${system}.default;
+        };
     };
 }
