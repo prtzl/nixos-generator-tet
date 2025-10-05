@@ -73,7 +73,7 @@ let
 
   # TODO: how to add a default
   makeTempStyle =
-    temp_probne: index: with temp_probne; ''
+    temp_probe: index: with temp_probe; ''
       #temperature.${builtins.toString index} {
         color: ${color};
       }
