@@ -131,7 +131,7 @@ declare -a ARGS
 update_flake_lock="false"
 autoaccept="false"
 for var in "$@"; do
-    if [[ "$var" == "-r" ]]; then
+    if [[ "$var" == "--update-flake" ]]; then
         update_flake_lock="true"
         continue;
     elif [[ "$var" == "-y" ]]; then
