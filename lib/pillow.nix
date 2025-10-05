@@ -32,10 +32,9 @@ in
         useDefaults
         ;
       # my attempt at forcing user to declare necessary host fields
-      host = {
+      host = host // {
         name = host.name;
         interfaces = host.interfaces;
-        disks = host.disks;
       };
       onHardware = (edition == "workstation" || edition == "virtual");
     };
