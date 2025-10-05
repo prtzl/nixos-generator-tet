@@ -134,7 +134,7 @@ for var in "$@"; do
     if [[ "$var" == "--update-flake" ]]; then
         update_flake_lock="true"
         continue;
-    elif [[ "$var" == "-y" ]]; then
+    elif [[ "$var" == "--switch" ]]; then
         autoaccept="true"
         continue;
     elif [[ "$var" == "$derivation_type" ]]; then
