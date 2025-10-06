@@ -6,7 +6,7 @@
       command_timeout = 50;
       add_newline = false;
 
-      format = "$username$hostname$directory$fill$cmd_duration$fill$nix_shell$git_branch$git_status$shell$line_break$character";
+      format = "$username$hostname$directory $git_branch$git_status $nix_shell$fill$cmd_duration$line_break$jobs$character";
 
       fill = {
         symbol = " ";
