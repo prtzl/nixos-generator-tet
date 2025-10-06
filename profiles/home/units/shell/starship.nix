@@ -4,7 +4,7 @@
     enableZshIntegration = true;
     settings = {
       command_timeout = 50;
-      add_newline = true;
+      add_newline = false;
 
       format = "$username$hostname$directory$fill$cmd_duration$fill$nix_shell$git_branch$git_status$shell$line_break$character";
 
