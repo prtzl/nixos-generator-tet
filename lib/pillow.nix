@@ -138,6 +138,7 @@ in
             pillow = pillow // {
               inherit personal;
             };
+            nixos_config = config;
           }
           // extraSpecialArgs;
         };
