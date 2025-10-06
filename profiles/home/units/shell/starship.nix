@@ -19,8 +19,8 @@
       };
       hostname = {
         disabled = false;
-        ssh_only = false;
-        ssh_symbol = "  ";
+        ssh_only = true;
+        ssh_symbol = " 󰔇";
         style = "bold " + "green";
         format = "[@$hostname$ssh_symbol]($style)";
       };
