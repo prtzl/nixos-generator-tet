@@ -6,7 +6,7 @@
       command_timeout = 50;
       add_newline = false;
 
-      format = "$username$hostname$directory $git_branch$git_status $nix_shell$fill$cmd_duration$line_break$jobs$character";
+      format = "$username$hostname$directory $git_branch $git_status $nix_shell$fill$cmd_duration$line_break$jobs$character";
 
       fill = {
         symbol = " ";
@@ -20,7 +20,7 @@
 
       cmd_duration = {
         min_time = 1000;
-        format = "[$duration ]($style)";
+        format = "[$duration]($style)";
       };
 
       directory = {
@@ -33,7 +33,7 @@
 
       git_branch = {
         always_show_remote = true;
-        format = "[$symbol$branch ]($style)";
+        format = "[$symbol$branch]($style)";
         style = "bold purple";
         symbol = " ";
       };
@@ -64,7 +64,7 @@
       };
 
       nix_shell = {
-        format = "[$symbol$name ]($style)";
+        format = "[$symbol$name]($style)";
         style = "bold blue";
         symbol = "";
       };
