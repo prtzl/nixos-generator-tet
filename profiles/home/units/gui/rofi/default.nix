@@ -5,6 +5,7 @@
 
 let
   rofipackage = pkgs.rofi;
+  rofitheme = ./myrofitheme.rasi;
   rofilauncher = pkgs.writeShellApplication {
     name = "rofilauncher";
     runtimeInputs = with pkgs; [
@@ -40,7 +41,7 @@ let
 
       # run rofi with overrides
       rofi -show drun \
-          -theme ${./dotfiles/rofi/myrofitheme.rasi} -show-icons \
+          -theme ${rofitheme} -show-icons \
           -theme-str "window { width: ''${WIN_WIDTH_INT}px; height: ''${WIN_HEIGHT_INT}px; } * { font: \"FiraCode Nerd Font Bold ''${FONT_SIZE_INT}\"; }"
     '';
   };
@@ -51,6 +52,6 @@ in
   programs.rofi = {
     enable = true;
     package = rofipackage;
-    theme = ./dotfiles/rofi/myrofitheme.rasi;
+    theme = rofitheme;
   };
 }

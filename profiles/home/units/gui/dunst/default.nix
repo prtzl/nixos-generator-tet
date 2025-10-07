@@ -8,7 +8,7 @@ let
   volume = pkgs.writeShellApplication {
     name = "volume";
     runtimeInputs = [ config.services.dunst.package ];
-    text = builtins.readFile ./dotfiles/dunst/volume.sh;
+    text = builtins.readFile ./volume.sh;
   };
 in
 {
