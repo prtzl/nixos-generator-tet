@@ -60,7 +60,7 @@
         qalculate-gtk
 
         # media
-        vlc # video player
+        haruna # video player (best one yet, nice ui, celluloid is broken somehow)
         gthumb # image viewer
 
         # wine

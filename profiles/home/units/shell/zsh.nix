@@ -21,14 +21,6 @@
       ssh = "ssh -C";
       xclip = "xclip -selection clipboard";
 
-      # Programs
-      pdf = "evince";
-      img = "";
-      play = "celluloid";
-      sl = "sl -ead -999";
-      vim = "nvim";
-      gvim = "nvim-qt";
-
       # System
       reboot = ''read -s \?"Reboot? [ENTER]: " && if [ -z "$REPLY" ];then env reboot;else echo "Canceled";fi'';
       poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
