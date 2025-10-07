@@ -1,4 +1,5 @@
 {
+  pillow,
   ...
 }:
 
@@ -26,8 +27,8 @@
       poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
       udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
 
-      git = "wslgit";
-    };
+    }
+    // (if pillow.isWSL then { git = "wslgit"; } else { });
 
     history = {
       expireDuplicatesFirst = true;

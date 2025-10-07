@@ -20,6 +20,7 @@ in
       hasGUI,
       host,
       hostPlatform,
+      isWSL ? false,
       settings ? { },
       useDefaults ? true,
     }:
@@ -28,6 +29,7 @@ in
         edition
         hasGUI
         hostPlatform
+        isWSL
         settings
         useDefaults
         ;

@@ -1,12 +1,10 @@
 {
   lib,
+  pillow,
   pkgs,
   ...
 }:
 
-let
-  wslgit = pkgs.writeShellScriptBin "wslgit" (builtins.readFile ./dotfiles/wslgit.sh);
-in
 {
   imports = with (lib.findModules ./.); [
     bash
@@ -16,18 +14,20 @@ in
     zsh
   ];
 
-  home.packages = with pkgs; [
-    bat
-    eza
-    fd
-    fzf
-    lazygit
-    ripgrep
-    tree
-    wslgit
-    xclip
-    zsh-completions
-  ];
+  home.packages =
+    with pkgs;
+    [
+      bat
+      eza
+      fd
+      fzf
+      lazygit
+      ripgrep
+      tree
+      xclip
+      zsh-completions
+    ]
+    ++ lib.optionals pillow.isWSL [ (import ./wslgit.nix) ];
 
   home.sessionVariables = {
     TERM = "xterm-256color";
