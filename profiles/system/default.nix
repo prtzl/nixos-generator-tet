@@ -15,6 +15,7 @@
       virtual
     ]
     ++ lib.optionals (pillow.hasGUI) [
+      firefox
       hyprland
     ]
     ++ lib.optionals (pillow.onHardware) [
@@ -36,6 +37,9 @@
       XDG_DATA_HOME = "$HOME/.local/share";
       XDG_STATE_HOME = "$HOME/.local/state";
     };
+    # philosohpy: only those that I could see using on a bare (shell) system
+    # Also not opinionated - like everyone is using rg, fd, etc ...
+    # Save the rest for home defaults or per-user
     systemPackages =
       with pkgs;
       [
@@ -50,31 +54,19 @@
         ripgrep # modern grep
         xh
       ]
-      ++ lib.optionals (pillow.hasGUI) [
-        # file explorer
-        xfce.thunar
-        xfce.thunar-archive-plugin
-        xfce.tumbler
-
-        # calculator
-        qalculate-gtk
-
-        # media
-        haruna # video player (best one yet, nice ui, celluloid is broken somehow)
-        gthumb # image viewer
-
-        # wine
-        wineWowPackages.waylandFull
-        winetricks
-      ]
       ++ lib.optionals (pillow.onHardware) [
         hwinfo # self explanatory
-        monitorets # GUI for temperature sensors
         pciutils # info on pci devices
         smartmontools # disk checks
         udiskie # automounts using udisks2
         usbutils # info on usb devices
       ];
+  };
+
+  # As on top - only what a bare system would really like to have
+  programs = {
+    usbtop.enable = pillow.onHardware;
+    zsh.enable = true;
   };
 
   nixpkgs.hostPlatform = "${pillow.hostPlatform}";
@@ -174,13 +166,6 @@
   };
 
   location.provider = "geoclue2"; # required for geoclue2 service, which ...
-
-  programs = {
-    firefox.enable = pillow.hasGUI;
-    gnome-disks.enable = pillow.onHardware;
-    usbtop.enable = pillow.onHardware;
-    zsh.enable = true;
-  };
 
   users.defaultUserShell = pkgs.zsh;
 

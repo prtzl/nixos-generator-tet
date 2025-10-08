@@ -19,6 +19,7 @@
     ++ lib.optionals (pillow.hasGUI) [
       ./units/gui
       alacritty
+      firefox
     ]
     ++ lib.optionals (pillow.onHardware) [
       tio
@@ -37,14 +38,30 @@
 
       # Utility
       pkgs-unfree.enpass
+      qalculate-gtk # calculator fyi
+      gnome-disk-utility
 
       # Communication
       signal-desktop
 
-      # creation
+      # media/creation
       audacity
       libreoffice
       gimp
       inkscape
+      haruna # video player (best one yet, nice ui, celluloid is broken somehow)
+      gthumb # image viewer
+
+      # file explorer
+      xfce.thunar
+      xfce.thunar-archive-plugin
+      xfce.tumbler
+
+      # wine
+      wineWowPackages.waylandFull
+      winetricks
+    ]
+    ++ lib.optionals pillow.onHardware [
+      monitorets # GUI for temperature sensors
     ];
 }
