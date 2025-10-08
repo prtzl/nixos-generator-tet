@@ -1,6 +1,6 @@
 {
+  inputs,
   lib,
-  local,
   pillow,
   pkgs,
   ...
@@ -119,8 +119,8 @@
     };
     registry = {
       # nixpkgs (default) == stable branch (my default)
-      stable.flake = local.nixpkgs;
-      unstable.flake = local.nixpkgs-unstable;
+      stable.flake = inputs.nixpkgs;
+      unstable.flake = inputs.nixpkgs-unstable;
       master.to = {
         owner = "nixos";
         repo = "nixpkgs";

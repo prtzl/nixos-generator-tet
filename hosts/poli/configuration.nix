@@ -1,5 +1,5 @@
 {
-  local,
+  inputs,
   lib,
   pkgs,
   ...
@@ -20,10 +20,10 @@ let
 in
 {
   imports = [
-    local.nixos-hardware.nixosModules.common-cpu-amd
-    local.nixos-hardware.nixosModules.common-gpu-intel
-    local.nixos-hardware.nixosModules.common-pc
-    local.nixos-hardware.nixosModules.common-pc-ssd
+    inputs.nixos-hardware.nixosModules.common-cpu-amd
+    inputs.nixos-hardware.nixosModules.common-gpu-intel
+    inputs.nixos-hardware.nixosModules.common-pc
+    inputs.nixos-hardware.nixosModules.common-pc-ssd
   ]
   ++ (with (lib.findModules ../../profiles/system/units); [
     steam

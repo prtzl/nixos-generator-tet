@@ -33,6 +33,5 @@ lib.pillowSystem rec {
   ];
 
   specialArgs = {
-    local = inputs;
   };
 }

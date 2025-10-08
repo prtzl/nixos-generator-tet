@@ -85,7 +85,7 @@ in
         ++ (lib.optionals pillow.useDefaults [ ../profiles/system ])
         ++ (importModules "nixosModules");
       specialArgs = specialArgs // {
-        inherit pillow;
+        inherit pillow inputs;
       };
     };
 
