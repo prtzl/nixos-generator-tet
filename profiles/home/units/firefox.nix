@@ -23,6 +23,7 @@
           "browser.aboutConfig.showWarning" = false;
           "browser.compactmode.show" = true;
           "browser.cache.disk.enable" = false; # Be kind to hard drive
+          "browser.toolbars.bookmarks.visibility" = "never";
 
           # "mousewheel.default.delta_multiplier_x" = 20;
           # "mousewheel.default.delta_multiplier_y" = 20;
