@@ -27,8 +27,8 @@
         format = "[:$path]($style)";
         style = "bold cyan";
         truncate_to_repo = false;
-        truncation_length = 5;
-        truncation_symbol = ">";
+        truncation_length = 8;
+        truncation_symbol = ".../";
       };
 
       git_branch = {
@@ -41,18 +41,17 @@
       git_status = {
         ahead = "⇡($count)";
         behind = "⇣($count)";
-        conflicted = "";
-        deleted = "";
-        disabled = false;
+        conflicted = "[\\[($count)\\]](bold red)";
+        deleted = "[\\[($count)\\]](bold red)";
         diverged = "⇕⇡($ahead_count)⇣($behind_count)";
-        format = "[\\[$all_status(|$ahead_behind)\\]]($style)";
-        modified = "󰷈";
-        renamed = "";
-        staged = "[++($count)](green)";
-        stashed = "󰆧";
-        style = "bold yellow";
-        untracked = "";
-        up_to_date = "✓";
+        format = "[$ahead_behind$all_status]($style)";
+        modified = "[\\[󰷈($count)\\]](bold yellow)";
+        renamed = "[\\[($count)\\]](bold cyan)";
+        staged = "[\\[+($count)\\]](bold green)";
+        stashed = "[\\[󰆧($count)\\]](bold purple)";
+        untracked = "[\\[($count)\\]](bold white)";
+        up_to_date = "[\\[✓\\]](bold purple)";
+        style = "bold purple";
       };
 
       hostname = {
