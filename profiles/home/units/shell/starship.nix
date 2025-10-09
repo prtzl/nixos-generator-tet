@@ -63,7 +63,7 @@
       };
 
       nix_shell = {
-        format = "[$symbol$name]($style)";
+        format = "[$symbol]($style)";
         style = "bold blue";
         symbol = "";
       };
