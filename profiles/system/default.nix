@@ -72,37 +72,41 @@
   nixpkgs.hostPlatform = "${pillow.hostPlatform}";
 
   # Some stuff that can change based on system, so use mkDefault
-  boot = {
-    kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
-    loader = {
-      systemd-boot = {
-        enable = lib.mkDefault true;
-        consoleMode = "max";
-      };
-      efi.canTouchEfiVariables = lib.mkDefault true;
-    };
-    # Following nonsense with plymouth is to enable startup animation
-    # Silent boot
-    consoleLogLevel = 3;
-    initrd.verbose = false;
-    # loader.timeout = 0;
-    kernelParams = [
-      "boot.shell_on_fail"
-      "quiet"
-      "rd.systemd.show_status=auto"
-      "splash"
-      "udev.log_level=3"
-    ];
-    plymouth = {
-      enable = true;
-      theme = "rings";
-      themePackages = with pkgs; [
-        (adi1090x-plymouth-themes.override {
-          selected_themes = [ "rings" ];
-        })
-      ];
-    };
-  };
+  boot =
+    if pillow.onHardware then
+      {
+        kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;
+        loader = {
+          systemd-boot = {
+            enable = lib.mkDefault true;
+            consoleMode = "max";
+          };
+          efi.canTouchEfiVariables = lib.mkDefault true;
+        };
+        # Following nonsense with plymouth is to enable startup animation
+        # Silent boot
+        consoleLogLevel = 3;
+        initrd.verbose = false;
+        # loader.timeout = 0;
+        kernelParams = [
+          "boot.shell_on_fail"
+          "quiet"
+          "rd.systemd.show_status=auto"
+          "splash"
+          "udev.log_level=3"
+        ];
+        plymouth = {
+          enable = true;
+          theme = "rings";
+          themePackages = with pkgs; [
+            (adi1090x-plymouth-themes.override {
+              selected_themes = [ "rings" ];
+            })
+          ];
+        };
+      }
+    else
+      { };
 
   nix = {
     monitored = {
@@ -157,7 +161,7 @@
   };
 
   services = {
-    fwupd.enable = true;
+    fwupd.enable = pillow.onHardware;
     geoclue2.enable = true; # required for localtimed (fails if not found)
     localtimed.enable = true; # time and datre control (otherwise I'm off :O
     printing.enable = pillow.onHardware;
@@ -191,11 +195,14 @@
     ];
   };
 
-  xdg.portal = {
-    enable = true;
-    wlr.enable = true; # enable portals for wlroots-based desktops (hyprland too!)
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
-  };
+  xdg.portal =
+    if pillow.hasGUI then
+      {
+        enable = true;
+        extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+      }
+    else
+      { };
 
   # xdg.mime.inverted.defaultApplications."gthumb.desktop" = lib.optionals (pillow.hasGUI) [
   #   "image/bmp"

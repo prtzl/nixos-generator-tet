@@ -17,19 +17,18 @@ in
   makePillowArgs =
     {
       edition,
-      hasGUI,
       host,
       hostPlatform,
-      isWSL ? false,
-      settings ? { },
       useDefaults ? true,
+      hasGUI ? (edition == "workstation" || edition == "virtual"),
+      settings ? { },
     }:
+    assert edition == "workstation" || edition == "virtual" || edition == "wsl";
     {
       inherit
         edition
         hasGUI
         hostPlatform
-        isWSL
         settings
         useDefaults
         ;

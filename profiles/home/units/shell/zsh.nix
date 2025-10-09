@@ -28,7 +28,7 @@
       udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
 
     }
-    // (if pillow.isWSL then { git = "wslgit"; } else { });
+    // (if (pillow.edition == "wsl") then { git = "wslgit"; } else { });
 
     history = {
       expireDuplicatesFirst = true;

@@ -27,7 +27,7 @@
       xclip
       zsh-completions
     ]
-    ++ lib.optionals pillow.isWSL [ (import ./wslgit.nix) ];
+    ++ lib.optionals (pillow.edition == "wsl") [ (import ./wslgit.nix { inherit pkgs; }) ];
 
   home.sessionVariables = {
     TERM = "xterm-256color";

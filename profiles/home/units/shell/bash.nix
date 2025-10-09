@@ -25,7 +25,7 @@
       poweroff = ''read -s \?"Poweroff? [ENTER]: " && if [ -z "$REPLY" ];then env poweroff;else echo "Canceled";fi'';
       udevreload = "sudo udevadm control --reload-rules && sudo udevadm trigger";
     }
-    // (if pillow.isWSL then { git = "wslgit"; } else { });
+    // (if (pillow.edition == "wsl") then { git = "wslgit"; } else { });
 
     initExtra = ''
       # Prevents direnv from yapping too much
