@@ -9,12 +9,9 @@ let
   );
 
   mkHost =
-    let
-      nixos-hardware = inputs.nixos-hardware.nixosModules;
-    in
     name:
     import (./../hosts + "/${name}") {
-      inherit lib inputs nixos-hardware;
+      inherit lib inputs;
     };
 in
 lib.genAttrs hostDirs mkHost
