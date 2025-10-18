@@ -7,6 +7,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     nvimnix.url = "github:prtzl/nvimnix";
+    # nvimnix.url = "/home/matej/projects/git/nvimnix";
     nix-monitored = {
       url = "github:ners/nix-monitored";
       inputs.nixpkgs.follows = "nixpkgs";
