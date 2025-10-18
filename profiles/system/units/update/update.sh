@@ -1,5 +1,3 @@
-#!/usr/bin/env bash
-
 set -e
 
 function info()
@@ -101,7 +99,7 @@ function derivation_diff()
     if [ -e "$profile_path" ]; then
         peval nvd diff "$(readlink -f "$profile_path")" "$(readlink -f "$out_link")"
     else
-        info "No existing profile found to diff against."
+        warn "No existing profile found to diff against."
     fi
 }
 
@@ -130,17 +128,24 @@ fi
 declare -a ARGS
 update_flake_lock="false"
 autoaccept="false"
+update_boot="false"
 for var in "$@"; do
-    if [[ "$var" == "--update-flake" ]]; then
+    if [[ "$var" == "-u" || "$var" == "--update" ]]; then
         update_flake_lock="true"
         continue;
-    elif [[ "$var" == "--switch" ]]; then
+    elif [[ "$var" == "-s" || "$var" == "--switch" ]]; then
         autoaccept="true"
         continue;
     elif [[ "$var" == "$derivation_type" ]]; then
         continue;
+    elif [[ "$var" == "-b" || "$var" == "--boot" ]]; then
+        update_boot="true"
+        continue;
     elif [[ "$var" = "-h" || "$var" == "--help" ]]; then
-        info "This script updates lock file, builds derivation, shows update diff and applies it.\nAdd option '-r' to update lock file.\nAdd option '-y' to accept changes and update."
+        info -e "This script updates lock file, builds derivation, shows update diff and applies it.\n\nOPTIONS:
+        -u/--update\t updates flake inputs
+        -s/--switch\t auto accept switch
+        -b/--boot\t (re)install bootloader: updates nixos entries"
         exit 0
     fi
     ARGS[${#ARGS[@]}]="$var";
@@ -149,7 +154,7 @@ done
 
 peval cd "$flake_dir"
 if [[ "$update_flake_lock" == "true" ]]; then
-    info "Updating flake.lock!"
+    warn "Updating flake.lock!"
     peval nix flake update
 fi
 
