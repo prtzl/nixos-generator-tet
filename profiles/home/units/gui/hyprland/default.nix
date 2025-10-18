@@ -6,25 +6,12 @@
   ...
 }:
 
-let
-  hypershot_shader_toggle = pkgs.writeShellApplication {
-    name = "hypershot_shader_toggle";
-    runtimeInputs = with pkgs; [
-      hyprshade
-      hyprshot
-    ];
-    text = builtins.readFile ./hyprshot_shader_toggle.sh;
-  };
-in
 {
   home.packages = with pkgs; [
     hyprcursor # I guess this has to come separately
-    hyprshade # applies a openGL shader to the screen - used for yellow tinging (replacement for redshift on x11)
     wl-clipboard # clipboard (why is this additional, like  what?)
     networkmanagerapplet # brings network manager applet functionality
-    hyprshot # screenshot utility - to be global in case I want to use it outside my script
-
-    hypershot_shader_toggle
+    hyprshot # screenshot utility
   ];
 
   # The jummy thing about this is that now as a service it reloads on configurations change automatically!
@@ -56,6 +43,12 @@ in
     };
   };
 
-  # Save shaders
-  xdg.configFile."hypr/shaders".source = ./shaders;
+  # Screen color without affecting screenshot/screenrecording SW
+  services.wlsunset = {
+    enable = true;
+    temperature.day = 4001;
+    temperature.night = 4000;
+    latitude = 0;
+    longitude = 0;
+  };
 }
