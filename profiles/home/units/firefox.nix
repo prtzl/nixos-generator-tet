@@ -1,11 +1,10 @@
 {
-  pillow,
   ...
 }:
 
 {
   programs.firefox = {
-    enable = pillow.hasGUI;
+    enable = true;
 
     # profiles = {
     #   default = {
@@ -14,30 +13,21 @@
     #     isDefault = true;
     #
     #     settings = {
-    #       # "browser.startup.homepage" = "https://duckduckgo.com";
+    #       "browser.aboutConfig.showWarning" = false;
+    #       "browser.cache.disk.enable" = false; # Be kind to hard drive
+    #       "browser.compactmode.show" = false;
     #       "browser.search.defaultenginename" = "ddg";
     #       "browser.search.order.1" = "DuckDuckGo";
-    #
-    #       "signon.rememberSignons" = false;
-    #       "widget.use-xdg-desktop-portal.file-picker" = 1;
-    #       "browser.aboutConfig.showWarning" = false;
-    #       "browser.compactmode.show" = true;
-    #       "browser.cache.disk.enable" = false; # Be kind to hard drive
     #       "browser.toolbars.bookmarks.visibility" = "never";
-    #
-    #       # "mousewheel.default.delta_multiplier_x" = 20;
-    #       # "mousewheel.default.delta_multiplier_y" = 20;
-    #       # "mousewheel.default.delta_multiplier_z" = 20;
-    #
-    #       # Firefox 75+ remembers the last workspace it was opened on as part of its session management.
-    #       # This is annoying, because I can have a blank workspace, click Firefox from the launcher, and
-    #       # then have Firefox open on some other workspace.
-    #       "widget.disable-workspace-management" = true;
-    #
+    #       "sidebar.main.tools" = "history,bookmarks";
+    #       "sidebar.new-sidebar.has-used" = true;
+    #       "sidebar.revamp" = true;
     #       "sidebar.verticalTabs" = true;
     #       "sidebar.verticalTabs.dragToPinPromo.dismissed" = true;
-    #       "sidebar.main.tools" = "history,bookmarks";
-    #       "sidebar.visibility" = "hide";
+    #       "sidebar.visibility" = "always-show"; # hide prevents it to expand on demand ...
+    #       "signon.rememberSignons" = false;
+    #       "widget.disable-workspace-management" = true;
+    #       "widget.use-xdg-desktop-portal.file-picker" = 1;
     #     };
     #
     #     search = {

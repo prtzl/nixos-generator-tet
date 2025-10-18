@@ -1,5 +1,4 @@
 {
-  pillow,
   ...
 }:
 
@@ -16,14 +15,10 @@ let
     Value = "";
     Status = "locked";
   };
-  lock-string = string: {
-    Value = string;
-    Status = "locked";
-  };
 in
 {
   programs.firefox = {
-    enable = pillow.hasGUI;
+    enable = true;
 
     # policies = {
     #   DisableTelemetry = true;
@@ -33,13 +28,74 @@ in
     #   SearchBar = "unified";
     #
     #   Preferences = {
-    #     # Privacy settings
-    #     "extensions.pocket.enabled" = lock-false;
-    #     "browser.newtabpage.pinned" = lock-empty-string;
-    #     "browser.topsites.contile.enabled" = lock-false;
+    #     "browser.formfill.enable" = lock-false;
     #     "browser.newtabpage.activity-stream.showSponsored" = lock-false;
-    #     "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
     #     "browser.newtabpage.activity-stream.showSponsoredTopSites" = lock-false;
+    #     "browser.newtabpage.activity-stream.system.showSponsored" = lock-false;
+    #     "browser.newtabpage.pinned" = lock-empty-string;
+    #     "browser.search.suggest.enabled" = lock-false;
+    #     "browser.search.suggest.enabled.private" = lock-false;
+    #     "browser.topsites.contile.enabled" = lock-false;
+    #     "browser.urlbar.showSearchSuggestionsFirst" = lock-false;
+    #     "browser.urlbar.suggest.searches" = lock-false;
+    #     "browser.uiCustomization.state" = {
+    #       "placements" = {
+    #         "widget-overflow-fixed-list" = [ ];
+    #         "unified-extensions-area" = [
+    #           "ublock0_raymondhill_net-browser-action"
+    #           "firefox-enpass_enpass_io-browser-action"
+    #           "_b271a84f-6f7c-4784-9b00-3c1b4faa2dce_-browser-action"
+    #           "idcac-pub_guus_ninja-browser-action"
+    #           "user-agent-switcher_ninetailed_ninja-browser-action"
+    #           "amptra_keepa_com-browser-action"
+    #           "_174b2d58-b983-4501-ab4b-07e71203cb43_-browser-action"
+    #           "_762f9885-5a13-4abd-9c77-433dcd38b8fd_-browser-action"
+    #         ];
+    #         "nav-bar" = [
+    #           "sidebar-button"
+    #           "back-button"
+    #           "forward-button"
+    #           "stop-reload-button"
+    #           "urlbar-container"
+    #           "downloads-button"
+    #           "fxa-toolbar-menu-button"
+    #           "unified-extensions-button"
+    #         ];
+    #         "toolbar-menubar" = [
+    #           "menubar-items"
+    #         ];
+    #         "TabsToolbar" = [ ];
+    #         "vertical-tabs" = [
+    #           "tabbrowser-tabs"
+    #         ];
+    #         "PersonalToolbar" = [
+    #           "import-button"
+    #           "personal-bookmarks"
+    #         ];
+    #       };
+    #       "seen" = [
+    #         "developer-button"
+    #         "screenshot-button"
+    #         "firefox-enpass_enpass_io-browser-action"
+    #         "_b271a84f-6f7c-4784-9b00-3c1b4faa2dce_-browser-action"
+    #         "idcac-pub_guus_ninja-browser-action"
+    #         "user-agent-switcher_ninetailed_ninja-browser-action"
+    #         "amptra_keepa_com-browser-action"
+    #         "_174b2d58-b983-4501-ab4b-07e71203cb43_-browser-action"
+    #         "_762f9885-5a13-4abd-9c77-433dcd38b8fd_-browser-action"
+    #         "ublock0_raymondhill_net-browser-action"
+    #       ];
+    #       "dirtyAreaCache" = [
+    #         "nav-bar"
+    #         "vertical-tabs"
+    #         "PersonalToolbar"
+    #         "toolbar-menubar"
+    #         "TabsToolbar"
+    #         "unified-extensions-area"
+    #       ];
+    #     };
+    #     "extensions.pocket.enabled" = lock-false;
+    #     "extensions.screenshots.disabled" = lock-true;
     #   };
     #
     #   ExtensionSettings = {
