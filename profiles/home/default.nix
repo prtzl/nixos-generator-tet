@@ -12,7 +12,6 @@
       ./units/shell
       btop
       git
-      nvim
       ranger
       tmux
     ]
@@ -24,6 +23,8 @@
     ++ lib.optionals (pillow.onHardware) [
       tio
     ];
+
+  programs.nvimnix.enable = true; # my nvim always use
 
   home.packages =
     with pkgs;

@@ -1,3 +1,0 @@
-{
-  programs.nvimnix.enable = true;
-}

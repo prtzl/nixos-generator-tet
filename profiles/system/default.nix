@@ -67,6 +67,7 @@
   programs = {
     usbtop.enable = pillow.onHardware;
     zsh.enable = true;
+    nvimnix.enable = true; # my nvim, always use
   };
 
   nixpkgs.hostPlatform = "${pillow.hostPlatform}";
