@@ -71,6 +71,12 @@
       usage() {
         du -h "''${1:-.}" --max-depth=1 2> /dev/null | sort -hr
       }
+
+      git_bare_remote() {
+        remote=$1
+        git config remote.$remote.fetch "+refs/heads/*:refs/remotes/$remote/*"
+        git fetch $remote
+      }
     '';
   };
 }

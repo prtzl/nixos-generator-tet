@@ -30,6 +30,12 @@
     initExtra = ''
       # Prevents direnv from yapping too much
       export DIRENV_LOG_FORMAT=""
+
+      git_bare_remote() {
+        remote=$1
+        git config remote.$remote.fetch "+refs/heads/*:refs/remotes/$remote/*"
+        git fetch $remote
+      }
     '';
   };
 }

@@ -24,16 +24,19 @@
       };
 
       directory = {
-        format = "[:$path]($style)";
+        before_repo_root_style = "bold blue";
+        format = "[:$path]($style)[ $read_only]($read_only_style)";
+        repo_root_format = "[:$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)";
+        repo_root_style = "bold italic purple";
         style = "bold cyan";
-        truncate_to_repo = false;
-        truncation_length = 8;
-        truncation_symbol = ".../";
+        truncate_to_repo = true;
+        truncation_length = 5;
+        truncation_symbol = "../";
       };
 
       git_branch = {
         always_show_remote = true;
-        format = "[$symbol$branch]($style)";
+        format = "[$symbol$branch(󰹴$remote_name/$remote_branch)]($style)";
         style = "bold purple";
         symbol = " ";
       };
