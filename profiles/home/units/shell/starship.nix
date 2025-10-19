@@ -27,7 +27,7 @@
         before_repo_root_style = "bold blue";
         format = "[:$path]($style)[ $read_only]($read_only_style)";
         repo_root_format = "[:$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)";
-        repo_root_style = "bold italic purple";
+        repo_root_style = "bold italic cyan";
         style = "bold cyan";
         truncate_to_repo = true;
         truncation_length = 5;
@@ -35,7 +35,7 @@
       };
 
       git_branch = {
-        always_show_remote = true;
+        always_show_remote = false;
         format = "[$symbol$branch(󰹴$remote_name/$remote_branch)]($style)";
         style = "bold purple";
         symbol = " ";
@@ -47,14 +47,14 @@
         conflicted = "[\\[($count)\\]](bold red)";
         deleted = "[\\[($count)\\]](bold red)";
         diverged = "⇕⇡($ahead_count)⇣($behind_count)";
-        format = "[$ahead_behind$all_status]($style)";
+        format = "[$ahead_behind](bold green)[$all_status]($style)";
         modified = "[\\[󰷈($count)\\]](bold yellow)";
         renamed = "[\\[($count)\\]](bold cyan)";
         staged = "[\\[+($count)\\]](bold green)";
         stashed = "[\\[󰆧($count)\\]](bold purple)";
+        style = "bold purple";
         untracked = "[\\[($count)\\]](bold white)";
         up_to_date = "[\\[✓\\]](bold purple)";
-        style = "bold purple";
       };
 
       hostname = {
