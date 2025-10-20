@@ -25,12 +25,12 @@
 
       directory = {
         before_repo_root_style = "bold blue";
-        format = "[:$path]($style)[ $read_only]($read_only_style)";
-        repo_root_format = "[:$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)";
-        repo_root_style = "bold italic cyan";
+        format = "[$path]($style)[ $read_only]($read_only_style)";
+        repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)";
+        repo_root_style = "bold cyan";
         style = "bold cyan";
         truncate_to_repo = true;
-        truncation_length = 5;
+        truncation_length = 8;
         truncation_symbol = "../";
       };
 
@@ -44,29 +44,28 @@
       git_status = {
         ahead = "⇡($count)";
         behind = "⇣($count)";
-        conflicted = "[\\[($count)\\]](bold red)";
-        deleted = "[\\[($count)\\]](bold red)";
+        conflicted = "[](bold red)";
+        deleted = "[](bold red)";
         diverged = "⇕⇡($ahead_count)⇣($behind_count)";
-        format = "[$ahead_behind](bold green)[$all_status]($style)";
-        modified = "[\\[󰷈($count)\\]](bold yellow)";
-        renamed = "[\\[($count)\\]](bold cyan)";
-        staged = "[\\[+($count)\\]](bold green)";
-        stashed = "[\\[󰆧($count)\\]](bold purple)";
+        format = "[\\[[$ahead_behind](bold green)[$all_status]($style)\\]]($style)";
+        modified = "[󰷈](bold yellow)";
+        renamed = "[](bold cyan)";
+        staged = "[+](bold green)";
+        stashed = "[󰆧](bold purple)";
         style = "bold purple";
-        untracked = "[\\[($count)\\]](bold white)";
-        up_to_date = "[\\[✓\\]](bold purple)";
+        untracked = "[](bold white)";
+        up_to_date = "[✓](bold purple)";
       };
 
       hostname = {
         disabled = false;
         format = "[@$hostname$ssh_symbol]($style)";
         ssh_only = true;
-        ssh_symbol = " 󰔇";
         style = "bold green";
       };
 
       nix_shell = {
-        format = "[$symbol]($style)";
+        format = "[$symbol $name \($state\)]($style)";
         style = "bold blue";
         symbol = "";
       };
@@ -74,7 +73,7 @@
       username = {
         disabled = false;
         format = "[$user]($style)";
-        show_always = true;
+        show_always = false;
         style_root = "bold red";
         style_user = "bold yellow";
       };
