@@ -25,7 +25,7 @@
 
       directory = {
         before_repo_root_style = "bold blue";
-        format = "[$path]($style)[ $read_only]($read_only_style)";
+        format = "[$path]($style)[$read_only]($read_only_style)";
         repo_root_format = "[$repo_root]($repo_root_style)[$path]($style)[$read_only]($read_only_style)";
         repo_root_style = "bold cyan";
         style = "bold cyan";
@@ -59,7 +59,7 @@
 
       hostname = {
         disabled = false;
-        format = "[@$hostname$ssh_symbol]($style)";
+        format = "[@$hostname $ssh_symbol]($style)";
         ssh_only = true;
         style = "bold green";
       };
