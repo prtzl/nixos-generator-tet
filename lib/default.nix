@@ -1,6 +1,5 @@
 {
   inputs,
-  externalModules ? [ ],
   version,
 }:
 
@@ -10,7 +9,6 @@ inputs.nixpkgs.lib.extend (
     pillow = import ./pillow.nix {
       lib = final;
       inherit
-        externalModules
         version
         inputs
         ;

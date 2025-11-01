@@ -1,18 +1,9 @@
 {
-  externalModules ? [ ],
   inputs,
   lib,
   version,
 }:
 
-let
-  importModules =
-    type:
-    lib.concatMap (
-      module: if (module ? ${type}) then [ module.${type}.default ] else [ ]
-    ) externalModules;
-
-in
 {
   makePillowArgs =
     {
@@ -55,6 +46,9 @@ in
         modules
         ++ [
           inputs.home-manager.nixosModules.home-manager
+          inputs.disko.nixosModules.default
+          inputs.nix-monitored.nixosModules.default
+          inputs.nvimnix.nixosModules.default
           (
             { ... }:
             {
@@ -81,8 +75,8 @@ in
             }
           )
         ]
-        ++ (lib.optionals pillow.useDefaults [ ../profiles/system ])
-        ++ (importModules "nixosModules");
+        ++ (lib.optionals pillow.useDefaults [ ../profiles/system ]);
+
       specialArgs = specialArgs // {
         inherit pillow inputs;
       };
@@ -102,17 +96,15 @@ in
     }:
     { config, lib, ... }:
     let
-      homeImports =
-        imports
-        ++ [
-          (
-            { ... }:
-            {
-              home.stateVersion = version;
-            }
-          )
-        ]
-        ++ (importModules "homeManagerModules");
+      homeImports = imports ++ [
+        inputs.nvimnix.homeManagerModules.default
+        (
+          { ... }:
+          {
+            home.stateVersion = version;
+          }
+        )
+      ];
 
       groupMapping = import ../lib/groupMapping.nix { inherit config lib; };
 

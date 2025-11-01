@@ -24,22 +24,15 @@
     inputs@{ flake-parts, disko, ... }:
     let
       version = "25.05";
-
-      externalModules = with inputs; [
-        disko
-        nix-monitored
-        nvimnix
-      ];
-
-      lib = import ./lib { inherit inputs version externalModules; };
+      lib = import ./lib { inherit inputs version; };
     in
     flake-parts.lib.mkFlake { inherit inputs; } {
-
       flake = {
         nixosConfigurations = lib.collectHosts;
       };
 
       systems = builtins.attrNames disko.packages;
+
       perSystem =
         { pkgs, system, ... }:
         {
