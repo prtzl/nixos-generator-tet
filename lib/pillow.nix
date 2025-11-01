@@ -48,7 +48,6 @@
           inputs.home-manager.nixosModules.home-manager
           inputs.disko.nixosModules.default
           inputs.nix-monitored.nixosModules.default
-          inputs.nvimnix.nixosModules.default
           (
             { ... }:
             {
@@ -75,7 +74,10 @@
             }
           )
         ]
-        ++ (lib.optionals pillow.useDefaults [ ../profiles/system ]);
+        ++ (lib.optionals pillow.useDefaults [
+          inputs.nvimnix.nixosModules.default
+          ../profiles/system
+        ]);
 
       specialArgs = specialArgs // {
         inherit pillow inputs;
@@ -96,15 +98,19 @@
     }:
     { config, lib, ... }:
     let
-      homeImports = imports ++ [
-        inputs.nvimnix.homeManagerModules.default
-        (
-          { ... }:
-          {
-            home.stateVersion = version;
-          }
-        )
-      ];
+      homeImports =
+        imports
+        ++ [
+          (
+            { ... }:
+            {
+              home.stateVersion = version;
+            }
+          )
+        ]
+        ++ (lib.optionals pillow.useDefaults [
+          inputs.nvimnix.homeManagerModules.default
+        ]);
 
       groupMapping = import ../lib/groupMapping.nix { inherit config lib; };
 
