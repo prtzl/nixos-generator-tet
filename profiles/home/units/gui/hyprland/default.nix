@@ -167,7 +167,7 @@
 
   # A bunch of services/routines based on timeouts related to GUI/hyprland
   services.hypridle = {
-    enable = true;
+    enable = false;
     systemdTarget = "hyprland-session.target";
     settings = {
       general = {
