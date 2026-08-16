@@ -74,7 +74,7 @@ in
       modules = modules ++ [
         inputs.disko.nixosModules.default
         inputs.home-manager.nixosModules.home-manager
-        inputs.hyprland.nixosModules.default
+        # inputs.hyprland.nixosModules.default
         inputs.jlink.nixosModules.default
         inputs.nix-monitored.nixosModules.default
         inputs.nvimnix.nixosModules.default
@@ -113,7 +113,7 @@ in
     let
       pkgs-unfree = mk-pkgs-unfree pillow.hostPlatform;
       homeImports = imports ++ [
-        inputs.hyprland.homeManagerModules.default
+        # inputs.hyprland.homeManagerModules.default
         inputs.nvimnix.homeManagerModules.default
       ];
 
