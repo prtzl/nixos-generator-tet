@@ -27,15 +27,16 @@
 
     flake-parts.url = "github:hercules-ci/flake-parts";
 
-    waybar = {
-      url = "github:Alexays/Waybar";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # nixpkgs is up-to date. No need to build myself this
+    # waybar = {
+    #   url = "github:Alexays/Waybar";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
-    hyprland = {
-      url = "github:hyprwm/Hyprland/v0.55.4";
-      # inputs.nixpkgs.follows = "nixpkgs";
-    };
+    # hyprland = {
+    #   url = "github:hyprwm/Hyprland/v0.55.4";
+    #   # inputs.nixpkgs.follows = "nixpkgs";
+    # };
 
     # Mine
     nvimnix.url = "github:prtzl/nvimnix";

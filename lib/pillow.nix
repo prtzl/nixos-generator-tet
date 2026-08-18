@@ -6,16 +6,16 @@
 
 let
   overlays = [
-    inputs.waybar.overlays.waybar
+    # inputs.waybar.overlays.waybar
     # inputs.hyprland.overlays.hyprland-packages
-    (self: super: {
-      waybar = super.waybar.overrideAttrs (old: {
-        doCheck = false;
-        mesonFlags = (old.mesonFlags or [ ]) ++ [
-          "-Dtests=disabled"
-        ];
-      });
-    })
+    # (self: super: {
+    #   waybar = super.waybar.overrideAttrs (old: {
+    #     doCheck = false;
+    #     mesonFlags = (old.mesonFlags or [ ]) ++ [
+    #       "-Dtests=disabled"
+    #     ];
+    #   });
+    # })
   ];
 
   mk-pkgs-unfree =
