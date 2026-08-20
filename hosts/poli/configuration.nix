@@ -19,6 +19,8 @@ let
     };
     mykernel = pkgs.linuxPackagesFor linux_6_16;
   };
+
+  xilinx = pkgs.callPackage ../../packages/vivado.nix { };
 in
 {
   imports = [
@@ -77,10 +79,20 @@ in
     };
   };
 
-  environment.systemPackages = with pkgs; [
-    arduino
-    nvtopPackages.intel
-    rsync
-    tauon
-  ];
+  environment.systemPackages =
+    with pkgs;
+    with xilinx;
+    [
+      arduino
+      nvtopPackages.intel
+      rsync
+      tauon
+
+      vivado
+      vitis
+      docnav
+      vivadoDesktop
+      vitisDesktop
+      docnavDesktop
+    ];
 }
