@@ -1,3 +1,9 @@
+{
+  lib,
+  pkgs,
+  ...
+}:
+
 let
   # MAIN NOTE: requires kernel 6.16 at least. 5.15.9 did not work - no Tccd[1/2]
   # Note: I could just read either temp3_input or temp4_input (ccd 1/2) and be happy. But no.
@@ -46,9 +52,23 @@ in
 
         # Create GPU core temp aliases with use of vid and pid of the card/interface
         ACTION=="add", SUBSYSTEM=="hwmon", ATTRS{vendor}=="0x8086", ATTRS{device}=="0xe2f0", RUN+="/bin/sh -c 'ln -s /sys$devpath/temp2_input /dev/gpu_temp'"
+
+        # Create "/dev" entries for Digilent device's with read and write
+        # permission granted to all users.
+        # ATTR{idVendor}=="1443", MODE:="0666"
+        # ACTION=="add", ATTR{idVendor}=="0403", ATTR{manufacturer}=="Digilent", MODE:="0666"
+
+        ATTR{idVendor}=="1443", MODE:="666"
+        ACTION=="add", ATTR{idVendor}=="0403", ATTR{manufacturer}=="Digilent", MODE:="666", RUN+="${
+          pkgs.callPackage ../adept.nix { }
+        }/bin/dftdrvdtch %s{busnum} %s{devnum}"
       '';
     };
   };
+
+  environment.systemPackages = [
+    (pkgs.callPackage ../adept.nix { })
+  ];
 
   systemd.services.${cpuTempUpdateService} = {
     description = "Update CPU temperature aliases";

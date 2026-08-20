@@ -16,6 +16,7 @@ in
       "steam-original"
       "steam-run"
       "steam-unwrapped"
+      "digilent.adept.runtime_2.30.1_amd64.deb"
     ];
 
   programs.steam = {
