@@ -10,7 +10,7 @@ client=$(hyprctl clients -j | jq -r ".[] | select((.class | contains(\"$player\"
 
 if [ -n "$client" ]; then
     # celluloid will by default re-use the last focused one
-    hyprctl dispatch focuswindow "address:$client"
+    hyprctl eval "hl.dispatch(hl.dsp.focus({ window = '$client' }))"
     # could use "--enqueue" if I wanted to add to playlist
     celluloid "$file"
 else
