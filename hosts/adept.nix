@@ -9,20 +9,16 @@ stdenv.mkDerivation rec {
   pname = "Adept";
   version = "2.30.1";
 
+  src = pkgs.fetchurl {
+    url = "https://files.digilent.com/Software/Adept2%20Runtime/${version}/digilent.adept.runtime_${version}_amd64.deb";
+    hash = "sha256-5eUdJkDC/zTvO0NvO983g4EgsVFg1z37q4LpB3O2s3I=";
+  };
+
   meta = {
     description = "Communicate with Digilent system boards";
     homepage = "https://digilent.com/reference/software/adept/start";
-    license = [ ]; # lib.licenses.gpl2;
+    license = [ ];
     platforms = [ "x86_64-linux" ];
-  };
-
-  src = pkgs.requireFile rec {
-    name = "digilent.adept.runtime_${version}_amd64.deb";
-    hash = "sha256-5eUdJkDC/zTvO0NvO983g4EgsVFg1z37q4LpB3O2s3I=";
-    message = ''
-      Please download Adept ${version} 64-bit .deb and add it to the nix store using
-      nix-prefetch-url file://$PWD/${name}.deb
-    '';
   };
 
   nativeBuildInputs = with pkgs; [
@@ -32,7 +28,6 @@ stdenv.mkDerivation rec {
 
   buildInputs = with pkgs; [
     stdenv.cc.cc.lib
-
     avahi
     libusb1
     openssl
@@ -45,8 +40,11 @@ stdenv.mkDerivation rec {
 
   installPhase = ''
     mkdir -p $out/bin $out/lib/digilent $out/share
-    cp -r usr/lib/udev/* $out/bin
-    cp -r usr/lib/digilent/adept/* $out/lib
-    cp -r usr/share/* $out/share
+
+    cp -r usr/lib/udev/* $out/bin/
+    chmod +x $out/bin/dftdrvdtch
+
+    cp -r usr/lib/digilent/adept/* $out/lib/digilent/
+    cp -r usr/share/* $out/share/
   '';
 }
